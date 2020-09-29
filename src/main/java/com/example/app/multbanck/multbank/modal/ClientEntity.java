@@ -13,6 +13,7 @@ public class ClientEntity {
 
     @Column(name = "nome")
     private String name;
+
     private String email;
     private String password;
 

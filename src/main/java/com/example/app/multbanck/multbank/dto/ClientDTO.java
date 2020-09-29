@@ -1,12 +1,16 @@
 package com.example.app.multbanck.multbank.dto;
 
 import com.example.app.multbanck.multbank.modal.ClientEntity;
+import javax.validation.constraints.NotNull;
 
 public class ClientDTO {
 
     private Long id;
+    @NotNull(message = "Campo nome é obrigatorio .")
     private String name;
+    @NotNull(message = "Campo email é obrigatorio .")
     private String email;
+    @NotNull(message = "Campo password é obrigatorio .")
     private String password;
 
     public ClientDTO() { }
@@ -47,6 +51,7 @@ public class ClientDTO {
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 }
