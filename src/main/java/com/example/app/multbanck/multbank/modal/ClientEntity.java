@@ -1,14 +1,17 @@
 package com.example.app.multbanck.multbank.modal;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "clientes")
 public class ClientEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome")
     private String name;
     private String email;
     private String password;
