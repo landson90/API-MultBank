@@ -3,6 +3,7 @@ package com.example.app.multbanck.multbank.config.interceptador;
 import com.example.app.multbanck.multbank.config.obejtoNotFound.ObjectNotFoundException;
 import com.example.app.multbanck.multbank.config.obejtoNotFound.StandardError;
 import com.example.app.multbanck.multbank.config.obejtoNotFound.ValidationError;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -34,6 +35,15 @@ public class ResourceExceptionHandler {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException e,
+                                                         HttpServletRequest request) {
 
+        StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(),
+                "E-mail já cadastrado .",
+                System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
+
+    }
 
 }

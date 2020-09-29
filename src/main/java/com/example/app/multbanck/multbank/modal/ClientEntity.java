@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "clientes")
+@Table(name = "clientes",
+        uniqueConstraints={@UniqueConstraint(columnNames="email")})
 public class ClientEntity {
 
     @Id
@@ -14,6 +15,7 @@ public class ClientEntity {
     @Column(name = "nome")
     private String name;
 
+    @Column(unique = true)
     private String email;
     private String password;
 
