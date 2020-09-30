@@ -1,8 +1,8 @@
 package com.example.app.multbanck.multbank.config.interceptador;
 
-import com.example.app.multbanck.multbank.config.obejtoNotFound.ObjectNotFoundException;
-import com.example.app.multbanck.multbank.config.obejtoNotFound.StandardError;
-import com.example.app.multbanck.multbank.config.obejtoNotFound.ValidationError;
+import com.example.app.multbanck.multbank.config.exceptionValidation.ObjectNotFoundException;
+import com.example.app.multbanck.multbank.config.exceptionValidation.StandardError;
+import com.example.app.multbanck.multbank.config.exceptionValidation.ValidationError;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

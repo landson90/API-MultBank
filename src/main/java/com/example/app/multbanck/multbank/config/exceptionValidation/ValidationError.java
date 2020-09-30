@@ -1,4 +1,4 @@
-package com.example.app.multbanck.multbank.config.obejtoNotFound;
+package com.example.app.multbanck.multbank.config.exceptionValidation;
 
 import com.example.app.multbanck.multbank.config.validator.FieldMessage;
 
