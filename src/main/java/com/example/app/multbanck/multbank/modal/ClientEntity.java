@@ -1,11 +1,12 @@
 package com.example.app.multbanck.multbank.modal;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 @Table(name = "clientes",
-        uniqueConstraints={@UniqueConstraint(columnNames="email")})
+        uniqueConstraints={@UniqueConstraint(columnNames="cpf")})
 public class ClientEntity {
 
     @Id
@@ -15,19 +16,18 @@ public class ClientEntity {
     @Column(name = "nome")
     private String name;
 
+    @Column(name = "data_nascimento")
+    private LocalDate dateOfBirth;
     @Column(unique = true)
-    private String email;
-    private String password;
+    private String cpf;
 
-    public ClientEntity() {
+    public ClientEntity() { }
 
-    }
-
-    public ClientEntity(Long id, String name, String email, String password) {
+    public ClientEntity(Long id, String name, LocalDate dateOfBirth, String cpf) {
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.cpf = cpf;
     }
 
     public Long getId() {
@@ -46,20 +46,20 @@ public class ClientEntity {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override
@@ -80,8 +80,8 @@ public class ClientEntity {
         return "ClientEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", cpf='" + cpf + '\'' +
                 '}';
     }
 }

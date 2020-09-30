@@ -46,7 +46,7 @@ public class ClientService {
         return new ClientEntity(
                 clientDTO.getId(),
                 clientDTO.getName(),
-                clientDTO.getEmail(),
-                clientDTO.getPassword());
+                clientDTO.getDateOfBirth(),
+                clientDTO.getCpf());
     }
 }
