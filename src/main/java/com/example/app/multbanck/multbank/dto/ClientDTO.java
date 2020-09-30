@@ -17,11 +17,10 @@ public class ClientDTO {
 
     @NotNull
     @NotEmpty(message = "O Campo cpf é obrigatório .")
-    @Length(min = 4, max = 50, message = "Deve conter 11 dígitos .")
+    @Length(min = 3, max = 11, message = "Deve conter 11 dígitos .")
     private String cpf;
 
-    @NotNull
-    @NotEmpty(message = "O Campo data de nascimento é obrigatório .")
+    @NotNull(message = "O Campo data de nascimento é obrigatório .")
     private LocalDate dateOfBirth;;
 
     public ClientDTO() { }

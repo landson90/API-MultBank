@@ -31,4 +31,9 @@ public class ClientController {
     public ResponseEntity<ClientDTO> store(@RequestBody @Valid ClientDTO clientDTO) {
         return this.clientService.store(clientDTO);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientDTO> show(@PathVariable long id) {
+        return  this.clientService.show(id);
+    }
 }

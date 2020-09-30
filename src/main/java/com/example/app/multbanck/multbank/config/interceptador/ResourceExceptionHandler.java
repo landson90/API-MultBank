@@ -36,11 +36,11 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException e,
+    public ResponseEntity<StandardError> dataIntegrityViolationExceptionCPF(DataIntegrityViolationException e,
                                                          HttpServletRequest request) {
 
         StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(),
-                "E-mail já cadastrado .",
+                "CPF já cadastrado .",
                 System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 

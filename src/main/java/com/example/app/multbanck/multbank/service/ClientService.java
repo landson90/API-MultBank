@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.service;
 
+import com.example.app.multbanck.multbank.config.exceptionValidation.ObjectNotFoundException;
 import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.modal.ClientEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
@@ -8,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +43,20 @@ public class ClientService {
                 .path("/{id}")
                 .buildAndExpand(clientEntity.getId()).toUri();
         return ResponseEntity.created(uri).body(new ClientDTO(clientEntity));
+    }
+
+
+
+    public ResponseEntity<ClientDTO> show(long id) {
+        ClientEntity clientEntity = this.filterClientById(id);
+        return  ResponseEntity.ok().body(new ClientDTO(clientEntity));
+    }
+
+    private ClientEntity filterClientById(long id) {
+        Optional<ClientEntity> clientEntity = this.clientRepository.findById(id);
+        return clientEntity.
+                orElseThrow(() ->
+                        new ObjectNotFoundException("Não temos regirtro com esse código ."));
     }
 
     private ClientEntity convertClientDtoToClientEntity(ClientDTO clientDTO) {

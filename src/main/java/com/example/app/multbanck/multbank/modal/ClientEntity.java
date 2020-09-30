@@ -18,6 +18,7 @@ public class ClientEntity {
 
     @Column(name = "data_nascimento")
     private LocalDate dateOfBirth;
+
     @Column(unique = true)
     private String cpf;
 
