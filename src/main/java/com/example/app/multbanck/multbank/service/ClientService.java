@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.swing.text.html.Option;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -29,14 +28,13 @@ public class ClientService {
     public ResponseEntity<List<ClientDTO>> index() {
         List<ClientEntity> clientEntities = this.clientRepository.findAll();
         List<ClientDTO> clientDTOS = clientEntities.stream().map(clients -> new ClientDTO(clients))
-                                                            .collect(Collectors.toList());
+                .collect(Collectors.toList());
 
-        return  ResponseEntity.ok().body(clientDTOS);
+        return ResponseEntity.ok().body(clientDTOS);
     }
 
 
     public ResponseEntity<ClientDTO> store(ClientDTO clientDTO) {
-
         ClientEntity clientEntity = this.convertClientDtoToClientEntity(clientDTO);
         clientEntity = this.clientRepository.save(clientEntity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -45,11 +43,9 @@ public class ClientService {
         return ResponseEntity.created(uri).body(new ClientDTO(clientEntity));
     }
 
-
-
     public ResponseEntity<ClientDTO> show(long id) {
         ClientEntity clientEntity = this.filterClientById(id);
-        return  ResponseEntity.ok().body(new ClientDTO(clientEntity));
+        return ResponseEntity.ok().body(new ClientDTO(clientEntity));
     }
 
     private ClientEntity filterClientById(long id) {
