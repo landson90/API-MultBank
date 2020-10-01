@@ -14,7 +14,8 @@ public class AccountEntity {
     @Column(name = "numero_conta")
     private String numberAccount;
 
-    @Column(name = "cliente")
+    @OneToOne
+    @JoinColumn(name = "cliente_id", unique = true)
     private ClientEntity clientEntity;
 
     public AccountEntity() { }
