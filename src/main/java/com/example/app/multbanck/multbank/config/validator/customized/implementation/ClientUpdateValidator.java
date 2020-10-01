@@ -3,6 +3,7 @@ package com.example.app.multbanck.multbank.config.validator.customized.implement
 import com.example.app.multbanck.multbank.config.validator.FieldMessage;
 import com.example.app.multbanck.multbank.config.validator.customized.ClientUpdate;
 import com.example.app.multbanck.multbank.dto.ClientDTO;
+import com.example.app.multbanck.multbank.dto.ClientUpdateDTO;
 import com.example.app.multbanck.multbank.modal.ClientEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ClientUpdateValidator implements ConstraintValidator<ClientUpdate, ClientDTO> {
+public class ClientUpdateValidator implements ConstraintValidator<ClientUpdate, ClientUpdateDTO> {
 
     @Autowired
     private HttpServletRequest request;
@@ -24,19 +25,16 @@ public class ClientUpdateValidator implements ConstraintValidator<ClientUpdate, 
     private ClientRepository clientRepository;
 
     @Override
-    public void initialize(ClientUpdate constraintAnnotation) {
-
-    }
+    public void initialize(ClientUpdate constraintAnnotation) { }
 
     @Override
-    public boolean isValid(ClientDTO clientDTO, ConstraintValidatorContext context) {
-
+    public boolean isValid(ClientUpdateDTO clientUpdateDTO, ConstraintValidatorContext context) {
         Map<String, String> map = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         long urlId = Long.parseLong(map.get("id"));
 
         List<FieldMessage> list = new ArrayList<>();
 
-        ClientEntity clientEntity = this.clientRepository.findByCpf(clientDTO.getCpf());
+        ClientEntity clientEntity = this.clientRepository.findByCpf(clientUpdateDTO.getCpf());
         if(clientEntity != null && clientEntity.getId().equals(urlId)) {
             list.add(new FieldMessage("cpf", "CPF ja cadastrado !"));
         }
@@ -49,4 +47,6 @@ public class ClientUpdateValidator implements ConstraintValidator<ClientUpdate, 
         }
         return list.isEmpty();
     }
+
+
 }

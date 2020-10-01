@@ -26,6 +26,7 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
     @Override
     public boolean isValid(ClientDTO clientDTO, ConstraintValidatorContext context) {
 
+        
         List<FieldMessage> list = new ArrayList<>();
 
         ClientEntity clientEntity = this.clientRepository.findByCpf(clientDTO.getCpf());
@@ -41,4 +42,6 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
         }
         return list.isEmpty();
     }
+
+
 }

@@ -1,8 +1,11 @@
 package com.example.app.multbanck.multbank.modal;
 
+import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "clientes",
