@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.service;
 
+import com.example.app.multbanck.multbank.config.exceptionValidation.ObjectNotFoundException;
 import com.example.app.multbanck.multbank.dto.AccountDTO;
 import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.modal.AccountEntity;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -34,12 +36,24 @@ public class AccountService {
                     .buildAndExpand(accountEntity.getId()).toUri();
             return ResponseEntity.created(uri).body(new AccountDTO(accountEntity));
         }
+    public ResponseEntity<AccountDTO> show(long id) {
+        AccountEntity accountEntity = this.filterClientById(id);
+        return ResponseEntity.ok().body(new AccountDTO(accountEntity));
+    }
+
+    private AccountEntity filterClientById(long id) {
+        Optional<AccountEntity> accountEntity = this.accountRepository.findById(id);
+        return accountEntity.
+                orElseThrow(() ->
+                        new ObjectNotFoundException("Não temos regirtro com esse código ."));
+    }
 
     private AccountEntity convertAccountDtoToAccountEntity(AccountDTO accountDTO) {
         return  new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getNumberAccount(),
-                accountDTO.getClientEntity()
+                accountDTO.getClientEntity(),
+                accountDTO.getBalance()
         );
     }
 

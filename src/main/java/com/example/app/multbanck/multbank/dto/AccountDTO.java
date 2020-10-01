@@ -7,12 +7,14 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 public class AccountDTO {
 
     private Long id;
     private String numberAccount;
     private ClientEntity clientEntity;
+    private BigDecimal balance;
 
     public AccountDTO() { }
 
@@ -20,7 +22,9 @@ public class AccountDTO {
         this.id             = accountEntity.getId();
         this.numberAccount  = accountEntity.getNumberAccount();
         this.clientEntity   = accountEntity.getClientEntity();
+        this.balance        = accountEntity.getBalance();
     }
+
 
     public Long getId() {
         return id;
@@ -44,6 +48,14 @@ public class AccountDTO {
 
     public void setClientEntity(ClientEntity clientEntity) {
         this.clientEntity = clientEntity;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.app.multbanck.multbank.modal;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -18,12 +19,16 @@ public class AccountEntity {
     @JoinColumn(name = "cliente_id", unique = true)
     private ClientEntity clientEntity;
 
+    @Column(name = "saldo")
+    private BigDecimal balance;
+
     public AccountEntity() { }
 
-    public AccountEntity(Long id, String numberAccount, ClientEntity clientEntity) {
+    public AccountEntity(Long id, String numberAccount, ClientEntity clientEntity, BigDecimal balance) {
         this.id = id;
         this.numberAccount = numberAccount;
         this.clientEntity = clientEntity;
+        this.balance = balance == null ? BigDecimal.valueOf(0) : balance;
     }
 
     public Long getId() {
@@ -48,6 +53,14 @@ public class AccountEntity {
 
     public void setClientEntity(ClientEntity clientEntity) {
         this.clientEntity = clientEntity;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     @Override

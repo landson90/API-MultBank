@@ -26,4 +26,10 @@ public class AccountController {
     public ResponseEntity<AccountDTO> store(@RequestBody @Valid AccountDTO accountDTO) {
         return this.accountService.store(accountDTO);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AccountDTO> show(@PathVariable long id) {
+        return this.accountService.show(id);
+    }
+
 }
