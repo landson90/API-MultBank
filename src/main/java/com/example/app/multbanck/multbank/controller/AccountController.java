@@ -32,4 +32,9 @@ public class AccountController {
         return this.accountService.show(id);
     }
 
+    @GetMapping
+    public ResponseEntity<AccountDTO> showAccountNumber(@RequestParam String accountNumber) {
+        return this.accountService.showAccountNumber(accountNumber);
+    }
+
 }

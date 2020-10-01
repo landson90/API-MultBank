@@ -28,16 +28,22 @@ public class AccountService {
 
     public ResponseEntity<AccountDTO> store(AccountDTO accountDTO) {
 
-            accountDTO.setNumberAccount(this.numberAccountValue(accountDTO));
-            AccountEntity accountEntity = this.convertAccountDtoToAccountEntity(accountDTO);
-            accountEntity = this.accountRepository.save(accountEntity);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(accountEntity.getId()).toUri();
-            return ResponseEntity.created(uri).body(new AccountDTO(accountEntity));
-        }
+        accountDTO.setNumberAccount(this.numberAccountValue(accountDTO));
+        AccountEntity accountEntity = this.convertAccountDtoToAccountEntity(accountDTO);
+        accountEntity = this.accountRepository.save(accountEntity);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(accountEntity.getId()).toUri();
+        return ResponseEntity.created(uri).body(new AccountDTO(accountEntity));
+    }
+
     public ResponseEntity<AccountDTO> show(long id) {
         AccountEntity accountEntity = this.filterClientById(id);
+        return ResponseEntity.ok().body(new AccountDTO(accountEntity));
+    }
+
+    public ResponseEntity<AccountDTO> showAccountNumber(String accountNumber) {
+        AccountEntity accountEntity = this.accountRepository.findByNumberAccount(accountNumber);
         return ResponseEntity.ok().body(new AccountDTO(accountEntity));
     }
 
@@ -49,7 +55,7 @@ public class AccountService {
     }
 
     private AccountEntity convertAccountDtoToAccountEntity(AccountDTO accountDTO) {
-        return  new AccountEntity(
+        return new AccountEntity(
                 accountDTO.getId(),
                 accountDTO.getNumberAccount(),
                 accountDTO.getClientEntity(),
@@ -62,8 +68,9 @@ public class AccountService {
         int isValue = random.nextInt(1000);
         int isValueDois = random.nextInt(10);
         int isValueTres = random.nextInt(10000);
-        String isValueNumberAccaount = Integer.toString(isValue)+"."+isValueTres+"-"+isValueDois;
+        String isValueNumberAccaount = Integer.toString(isValue) + "." + isValueTres + "-" + isValueDois;
         return isValueNumberAccaount;
     }
+
 
 }
