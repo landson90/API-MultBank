@@ -1,6 +1,7 @@
 package com.example.app.multbanck.multbank.dto;
 
-import com.example.app.multbanck.multbank.config.validator.ClientInsert;
+import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
+import com.example.app.multbanck.multbank.config.validator.customized.ClientUpdate;
 import com.example.app.multbanck.multbank.modal.ClientEntity;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @ClientInsert
+@ClientUpdate
 public class ClientDTO {
 
     private Long id;

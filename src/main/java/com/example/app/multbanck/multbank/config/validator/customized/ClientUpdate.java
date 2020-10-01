@@ -1,6 +1,7 @@
-package com.example.app.multbanck.multbank.config.validator;
+package com.example.app.multbanck.multbank.config.validator.customized;
 
-import com.example.app.multbanck.multbank.config.validator.implementation.ClientInsertValidator;
+import com.example.app.multbanck.multbank.config.validator.customized.implementation.ClientInsertValidator;
+import com.example.app.multbanck.multbank.config.validator.customized.implementation.ClientUpdateValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -9,11 +10,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Constraint(validatedBy = ClientInsertValidator.class)
+@Constraint(validatedBy = ClientUpdateValidator.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ClientInsert {
-
+public @interface ClientUpdate {
     String message() default "Erro de validação";
 
     Class<?>[] groups() default {};
