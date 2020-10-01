@@ -24,7 +24,10 @@ public class AccountEntity {
 
     public AccountEntity() { }
 
-    public AccountEntity(Long id, String numberAccount, ClientEntity clientEntity, BigDecimal balance) {
+    public AccountEntity(Long id,
+                         String numberAccount,
+                         ClientEntity clientEntity,
+                         BigDecimal balance) {
         this.id = id;
         this.numberAccount = numberAccount;
         this.clientEntity = clientEntity;

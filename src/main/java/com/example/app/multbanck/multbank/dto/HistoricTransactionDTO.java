@@ -7,11 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class HistoricTransactionDTO {
 
     private long id;
+    @NotNull
+    @NotEmpty(message = "O Campo conta é obrigatório .")
     private String account;
     private BigDecimal oldValue;
     private TransactionEnum transactionEnum;

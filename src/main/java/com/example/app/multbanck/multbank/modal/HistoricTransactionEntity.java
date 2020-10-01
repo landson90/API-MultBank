@@ -20,6 +20,7 @@ public class HistoricTransactionEntity {
     @Column(name = "valor_antigo")
     private BigDecimal oldValue;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo_transacao")
     private TransactionEnum transactionEnum;
 
@@ -29,7 +30,7 @@ public class HistoricTransactionEntity {
     @Column(name = "transferencia_cliente")
     private String clientTransaction;
 
-    public HistoricTransactionEntity() { }
+
 
     public HistoricTransactionEntity(long id,
                                      String account,
