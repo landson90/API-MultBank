@@ -22,4 +22,10 @@ public class HistoricTransactionController {
     public ResponseEntity<HistoricTransactionDTO> deposit(@RequestBody DataForTransactionDTO dataForTransactionDTO) {
         return this.service.deposit(dataForTransactionDTO);
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saque")
+    public ResponseEntity<HistoricTransactionDTO> accountTakeoff(
+            @RequestBody DataForTransactionDTO dataForTransactionDTO) {
+        return this.service.accountTakeoff(dataForTransactionDTO);
+    }
 }

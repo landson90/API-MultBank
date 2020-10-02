@@ -49,6 +49,25 @@ public class HistoricTransactionService {
         this.updateBalanceAccount(accountEntity, totalValue);
         return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
     }
+    public ResponseEntity<HistoricTransactionDTO> accountTakeoff(DataForTransactionDTO dataForTransactionDTO) {
+        AccountEntity accountEntity = this.accountRepository
+                .findByNumberAccount(dataForTransactionDTO.getAccountClient());
+        
+        BigDecimal totalValue = accountEntity.getBalance().subtract(dataForTransactionDTO.getValueTransaction());
+
+        HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
+                .save(this.convertHistoricToSave(accountEntity,
+                        dataForTransactionDTO,
+                        totalValue));
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(historicTransactionEntity.getId()).toUri();
+        this.updateBalanceAccount(accountEntity, totalValue);
+        return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
+
+    }
+
     private void updateBalanceAccount(AccountEntity accountEntity, BigDecimal valor) {
         AccountEntity account = this.accountRepository.findByNumberAccount(accountEntity.getNumberAccount());
         account.setBalance(valor);
@@ -67,4 +86,6 @@ public class HistoricTransactionService {
                 accountEntity.getClientEntity().getName()
         );
     }
+
+
 }
