@@ -31,7 +31,7 @@ public class HistoricTransactionController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/tranferencia")
-    public ResponseEntity<HistoricTransactionDTO> transaction(
+    public ResponseEntity<AccountViewDTO> transaction(
             @RequestBody DataForTransactionDTO dataForTransactionDTO) {
         return this.service.transaction(dataForTransactionDTO);
     }

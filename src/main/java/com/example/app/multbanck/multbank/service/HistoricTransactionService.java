@@ -78,26 +78,42 @@ public class HistoricTransactionService {
         }
 
     }
-    public ResponseEntity<HistoricTransactionDTO> transaction(DataForTransactionDTO dataForTransactionDTO) {
+    public ResponseEntity<AccountViewDTO> transaction(DataForTransactionDTO dataForTransactionDTO) {
+        AccountViewDTO accountViewDTO = new AccountViewDTO();
         AccountEntity accountEntity = this.accountRepository
                 .findByNumberAccount(dataForTransactionDTO.getAccountClient());
+        if(accountEntity.getBalance() >= dataForTransactionDTO.getValueTransaction() &&
+                dataForTransactionDTO.getValueTransaction() <= 0) {
+            accountViewDTO.setMsg("Valor infalido");
+            return  ResponseEntity.ok().body(accountViewDTO);
+        } else {
 
-        int  accaoutNewValue = accountEntity.getBalance() - dataForTransactionDTO.getValueTransaction();
+            int  accaoutNewValue = accountEntity.getBalance() - dataForTransactionDTO.getValueTransaction();
 
-        HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
-                .save(this.convertHistoricToSave(accountEntity,
-                        dataForTransactionDTO,
-                        accaoutNewValue));
+            HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
+                    .save(this.convertHistoricToSave(accountEntity,
+                            dataForTransactionDTO,
+                            accaoutNewValue));
 
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(historicTransactionEntity.getId()).toUri();
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(historicTransactionEntity.getId()).toUri();
 
-        this.updateBalanceAccount(accountEntity, accaoutNewValue);
-        this.updateTransactionOldClient(dataForTransactionDTO);
-        return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
+            this.updateBalanceAccount(accountEntity, accaoutNewValue);
+            this.updateTransactionOldClient(dataForTransactionDTO);
+            accountViewDTO = this.createViewTransaction(accountEntity, dataForTransactionDTO);
+            accountViewDTO.setClientOldClient(this.ClientOldName(dataForTransactionDTO));
+            accountViewDTO.setMsg("Transferencia realizado com sucesso !");
+            return  ResponseEntity.ok().body(accountViewDTO);
+        }
+
     }
-
+    private String ClientOldName(DataForTransactionDTO dataForTransactionDTO) {
+        AccountEntity accountEntity = this.accountRepository
+                .findByNumberAccount(dataForTransactionDTO.getAccountOtherClient());
+        String clientName = accountEntity.getClientEntity().getName();
+        return clientName;
+    }
     private void updateTransactionOldClient(DataForTransactionDTO dataForTransactionDTO) {
         AccountEntity accountEntityOldClient = this.accountRepository
                                                    .findByNumberAccount(dataForTransactionDTO.getAccountOtherClient());
