@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.controller;
 
+import com.example.app.multbanck.multbank.dto.AccountViewDTO;
 import com.example.app.multbanck.multbank.dto.DataForTransactionDTO;
 import com.example.app.multbanck.multbank.dto.HistoricTransactionDTO;
 import com.example.app.multbanck.multbank.service.HistoricTransactionService;
@@ -19,12 +20,12 @@ public class HistoricTransactionController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/depositar")
-    public ResponseEntity<HistoricTransactionDTO> deposit(@RequestBody DataForTransactionDTO dataForTransactionDTO) {
-        return this.service.deposit(dataForTransactionDTO);
+    public ResponseEntity<AccountViewDTO> deposit(@RequestBody DataForTransactionDTO dataForTransactionDTO) {
+        return  this.service.deposit(dataForTransactionDTO);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/saque")
-    public ResponseEntity<HistoricTransactionDTO> accountTakeoff(
+    public ResponseEntity<AccountViewDTO> accountTakeoff(
             @RequestBody DataForTransactionDTO dataForTransactionDTO) {
         return this.service.accountTakeoff(dataForTransactionDTO);
     }

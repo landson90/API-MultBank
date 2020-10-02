@@ -1,13 +1,11 @@
 package com.example.app.multbanck.multbank.service;
 
-import com.example.app.multbanck.multbank.dto.AccountDTO;
-import com.example.app.multbanck.multbank.dto.ClientDTO;
-import com.example.app.multbanck.multbank.dto.DataForTransactionDTO;
-import com.example.app.multbanck.multbank.dto.HistoricTransactionDTO;
+import com.example.app.multbanck.multbank.dto.*;
 import com.example.app.multbanck.multbank.modal.AccountEntity;
 import com.example.app.multbanck.multbank.modal.ClientEntity;
 import com.example.app.multbanck.multbank.modal.HistoricTransactionEntity;
 import com.example.app.multbanck.multbank.repository.AccountRepository;
+import com.example.app.multbanck.multbank.repository.ClientRepository;
 import com.example.app.multbanck.multbank.repository.HistoricTransactionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,50 +21,61 @@ public class HistoricTransactionService {
 
     private HistoricTransactionRepository historicTransactionRepository;
     private AccountRepository accountRepository;
+    private ClientRepository clientRepository;
+
 
     @Autowired
-    public HistoricTransactionService(HistoricTransactionRepository historicTransactionRepository,
-                                      AccountRepository accountRepository) {
+    public HistoricTransactionService(
+            HistoricTransactionRepository historicTransactionRepository,
+            AccountRepository accountRepository,
+            ClientRepository clientRepository) {
         this.historicTransactionRepository = historicTransactionRepository;
         this.accountRepository = accountRepository;
+        this.clientRepository = clientRepository;
     }
 
-    public ResponseEntity<HistoricTransactionDTO> deposit(DataForTransactionDTO dataForTransactionDTO) {
-
-
+    public ResponseEntity<AccountViewDTO> deposit(DataForTransactionDTO dataForTransactionDTO) {
+        AccountViewDTO accountViewDTO = new AccountViewDTO();
+        if(dataForTransactionDTO.getValueTransaction() <= 0) {
+            accountViewDTO.setMsg("Valor infalido");
+            return  ResponseEntity.ok().body(accountViewDTO);
+        }
         AccountEntity accountEntity = this.accountRepository
                 .findByNumberAccount(dataForTransactionDTO.getAccountClient());
 
-        int  accaoutNewValue = accountEntity.getBalance() + dataForTransactionDTO.getValueTransaction();
+        int accaoutNewValue = accountEntity.getBalance() + dataForTransactionDTO.getValueTransaction();
 
         HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
                 .save(this.convertHistoricToSave(accountEntity,
                 dataForTransactionDTO,
                         accaoutNewValue ));
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(historicTransactionEntity.getId()).toUri();
         this.updateBalanceAccount(accountEntity, accaoutNewValue);
-        return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
+        accountViewDTO = this.createViewTransaction(accountEntity, dataForTransactionDTO);
+        accountViewDTO.setMsg("Deposito realizado com sucesso !");
+        return  ResponseEntity.ok().body(accountViewDTO);
     }
 
-    public ResponseEntity<HistoricTransactionDTO> accountTakeoff(DataForTransactionDTO dataForTransactionDTO) {
+    public ResponseEntity<AccountViewDTO> accountTakeoff(DataForTransactionDTO dataForTransactionDTO) {
+        AccountViewDTO accountViewDTO = new AccountViewDTO();
         AccountEntity accountEntity = this.accountRepository
                 .findByNumberAccount(dataForTransactionDTO.getAccountClient());
+        if(accountEntity.getBalance() >= dataForTransactionDTO.getValueTransaction() &&
+                dataForTransactionDTO.getValueTransaction() <= 0) {
+            accountViewDTO.setMsg("Valor infalido");
+            return  ResponseEntity.ok().body(accountViewDTO);
+        } else {
+            int accaoutNewValue = accountEntity.getBalance() - dataForTransactionDTO.getValueTransaction();
 
-        int  accaoutNewValue = accountEntity.getBalance() - dataForTransactionDTO.getValueTransaction();
+            HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
+                    .save(this.convertHistoricToSave(accountEntity,
+                            dataForTransactionDTO,
+                            accaoutNewValue));
 
-        HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
-                .save(this.convertHistoricToSave(accountEntity,
-                        dataForTransactionDTO,
-                        accaoutNewValue));
-
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(historicTransactionEntity.getId()).toUri();
-        this.updateBalanceAccount(accountEntity, accaoutNewValue);
-        return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
+            this.updateBalanceAccount(accountEntity, accaoutNewValue);
+            accountViewDTO = this.createViewTransaction(accountEntity, dataForTransactionDTO);
+            accountViewDTO.setMsg("Saque realizado com sucesso !");
+            return ResponseEntity.ok().body(accountViewDTO);
+        }
 
     }
     public ResponseEntity<HistoricTransactionDTO> transaction(DataForTransactionDTO dataForTransactionDTO) {
@@ -117,6 +126,16 @@ public class HistoricTransactionService {
                 totalValue,
                 accountEntity.getClientEntity().getName()
         );
+    }
+
+    private AccountViewDTO createViewTransaction(AccountEntity accountEntity,
+                                                 DataForTransactionDTO dataForTransactionDTO) {
+
+        AccountViewDTO accountViewDTO = new AccountViewDTO();
+        accountViewDTO.setClient(accountEntity.getClientEntity().getName());
+        accountViewDTO.setTransfer(dataForTransactionDTO.getTransactionEnum().toString());
+        accountViewDTO.setValue(accountEntity.getBalance());
+        return accountViewDTO;
     }
 
 
