@@ -28,4 +28,12 @@ public class HistoricTransactionController {
             @RequestBody DataForTransactionDTO dataForTransactionDTO) {
         return this.service.accountTakeoff(dataForTransactionDTO);
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/tranferencia")
+    public ResponseEntity<HistoricTransactionDTO> transaction(
+            @RequestBody DataForTransactionDTO dataForTransactionDTO) {
+        return this.service.transaction(dataForTransactionDTO);
+    }
+
+
 }

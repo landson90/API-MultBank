@@ -7,14 +7,15 @@ import java.math.BigDecimal;
 public class DataForTransactionDTO {
 
     private String accountClient;
-    private BigDecimal valueTransaction;
+    private int valueTransaction;
     private String  accountOtherClient;
     private TransactionEnum transactionEnum;
+    private String msg;
 
     public DataForTransactionDTO() { }
 
     public DataForTransactionDTO(String accountClient,
-                                 BigDecimal valueTransaction,
+                                 int valueTransaction,
                                  String accountOtherClient,
                                  TransactionEnum transactionEnum) {
         this.accountClient = accountClient;
@@ -30,11 +31,11 @@ public class DataForTransactionDTO {
         this.accountClient = accountClient;
     }
 
-    public BigDecimal getValueTransaction() {
+    public int getValueTransaction() {
         return valueTransaction;
     }
 
-    public void setValueTransaction(BigDecimal valueTransaction) {
+    public void setValueTransaction(int valueTransaction) {
         this.valueTransaction = valueTransaction;
     }
 
@@ -52,5 +53,13 @@ public class DataForTransactionDTO {
 
     public void setTransactionEnum(TransactionEnum transactionEnum) {
         this.transactionEnum = transactionEnum;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

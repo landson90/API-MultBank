@@ -17,9 +17,9 @@ public class HistoricTransactionDTO {
     @NotNull
     @NotEmpty(message = "O Campo conta é obrigatório .")
     private String account;
-    private BigDecimal oldValue;
+    private int oldValue;
     private TransactionEnum transactionEnum;
-    private BigDecimal currentValue;
+    private int currentValue;
     private String clientTransaction;
 
     public HistoricTransactionDTO() { }
@@ -49,11 +49,11 @@ public class HistoricTransactionDTO {
         this.account = account;
     }
 
-    public BigDecimal getOldValue() {
+    public int getOldValue() {
         return oldValue;
     }
 
-    public void setOldValue(BigDecimal oldValue) {
+    public void setOldValue(int oldValue) {
         this.oldValue = oldValue;
     }
 
@@ -65,11 +65,11 @@ public class HistoricTransactionDTO {
         this.transactionEnum = transactionEnum;
     }
 
-    public BigDecimal getCurrentValue() {
+    public int getCurrentValue() {
         return currentValue;
     }
 
-    public void setCurrentValue(BigDecimal currentValue) {
+    public void setCurrentValue(int currentValue) {
         this.currentValue = currentValue;
     }
 

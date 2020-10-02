@@ -20,18 +20,18 @@ public class AccountEntity {
     private ClientEntity clientEntity;
 
     @Column(name = "saldo")
-    private BigDecimal balance;
+    private int balance;
 
     public AccountEntity() { }
 
     public AccountEntity(Long id,
                          String numberAccount,
                          ClientEntity clientEntity,
-                         BigDecimal balance) {
+                         int balance) {
         this.id = id;
         this.numberAccount = numberAccount;
         this.clientEntity = clientEntity;
-        this.balance = balance == null ? BigDecimal.valueOf(0) : balance;
+        this.balance = balance;
     }
 
     public Long getId() {
@@ -58,11 +58,11 @@ public class AccountEntity {
         this.clientEntity = clientEntity;
     }
 
-    public BigDecimal getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 

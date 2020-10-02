@@ -18,14 +18,14 @@ public class HistoricTransactionEntity {
     private String account;
 
     @Column(name = "valor_antigo")
-    private BigDecimal oldValue;
+    private int oldValue;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_transacao")
     private TransactionEnum transactionEnum;
 
     @Column(name = "valor_atual")
-    private BigDecimal currentValue;
+    private int currentValue;
 
     @Column(name = "transferencia_cliente")
     private String clientTransaction;
@@ -34,9 +34,9 @@ public class HistoricTransactionEntity {
 
     public HistoricTransactionEntity(long id,
                                      String account,
-                                     BigDecimal oldValue,
+                                     int oldValue,
                                      TransactionEnum transactionEnum,
-                                     BigDecimal currentValue,
+                                     int currentValue,
                                      String clientTransaction) {
         this.id = id;
         this.account = account;
@@ -62,11 +62,11 @@ public class HistoricTransactionEntity {
         this.account = account;
     }
 
-    public BigDecimal getOldValue() {
+    public int getOldValue() {
         return oldValue;
     }
 
-    public void setOldValue(BigDecimal oldValue) {
+    public void setOldValue(int oldValue) {
         this.oldValue = oldValue;
     }
 
@@ -78,11 +78,11 @@ public class HistoricTransactionEntity {
         this.transactionEnum = transactionEnum;
     }
 
-    public BigDecimal getCurrentValue() {
+    public int getCurrentValue() {
         return currentValue;
     }
 
-    public void setCurrentValue(BigDecimal currentValue) {
+    public void setCurrentValue(int currentValue) {
         this.currentValue = currentValue;
     }
 

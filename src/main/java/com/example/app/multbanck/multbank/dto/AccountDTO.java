@@ -14,7 +14,7 @@ public class AccountDTO {
     private Long id;
     private String numberAccount;
     private ClientEntity clientEntity;
-    private BigDecimal balance;
+    private int balance;
 
     public AccountDTO() { }
 
@@ -50,11 +50,11 @@ public class AccountDTO {
         this.clientEntity = clientEntity;
     }
 
-    public BigDecimal getBalance() {
+    public int getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 

@@ -33,50 +33,82 @@ public class HistoricTransactionService {
 
     public ResponseEntity<HistoricTransactionDTO> deposit(DataForTransactionDTO dataForTransactionDTO) {
 
+
         AccountEntity accountEntity = this.accountRepository
                 .findByNumberAccount(dataForTransactionDTO.getAccountClient());
-        BigDecimal totalValue = accountEntity.getBalance().add(dataForTransactionDTO.getValueTransaction());
 
+        int  accaoutNewValue = accountEntity.getBalance() + dataForTransactionDTO.getValueTransaction();
 
         HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
                 .save(this.convertHistoricToSave(accountEntity,
                 dataForTransactionDTO,
-                totalValue));
+                        accaoutNewValue ));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(historicTransactionEntity.getId()).toUri();
-        this.updateBalanceAccount(accountEntity, totalValue);
+        this.updateBalanceAccount(accountEntity, accaoutNewValue);
         return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
     }
+
     public ResponseEntity<HistoricTransactionDTO> accountTakeoff(DataForTransactionDTO dataForTransactionDTO) {
         AccountEntity accountEntity = this.accountRepository
                 .findByNumberAccount(dataForTransactionDTO.getAccountClient());
-        
-        BigDecimal totalValue = accountEntity.getBalance().subtract(dataForTransactionDTO.getValueTransaction());
+
+        int  accaoutNewValue = accountEntity.getBalance() - dataForTransactionDTO.getValueTransaction();
 
         HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
                 .save(this.convertHistoricToSave(accountEntity,
                         dataForTransactionDTO,
-                        totalValue));
+                        accaoutNewValue));
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(historicTransactionEntity.getId()).toUri();
-        this.updateBalanceAccount(accountEntity, totalValue);
+        this.updateBalanceAccount(accountEntity, accaoutNewValue);
         return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
 
     }
+    public ResponseEntity<HistoricTransactionDTO> transaction(DataForTransactionDTO dataForTransactionDTO) {
+        AccountEntity accountEntity = this.accountRepository
+                .findByNumberAccount(dataForTransactionDTO.getAccountClient());
 
-    private void updateBalanceAccount(AccountEntity accountEntity, BigDecimal valor) {
+        int  accaoutNewValue = accountEntity.getBalance() - dataForTransactionDTO.getValueTransaction();
+
+        HistoricTransactionEntity historicTransactionEntity = this.historicTransactionRepository
+                .save(this.convertHistoricToSave(accountEntity,
+                        dataForTransactionDTO,
+                        accaoutNewValue));
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(historicTransactionEntity.getId()).toUri();
+
+        this.updateBalanceAccount(accountEntity, accaoutNewValue);
+        this.updateTransactionOldClient(dataForTransactionDTO);
+        return  ResponseEntity.created(uri).body(new HistoricTransactionDTO(historicTransactionEntity));
+    }
+
+    private void updateTransactionOldClient(DataForTransactionDTO dataForTransactionDTO) {
+        AccountEntity accountEntityOldClient = this.accountRepository
+                                                   .findByNumberAccount(dataForTransactionDTO.getAccountOtherClient());
+        int accountValue = accountEntityOldClient.getBalance() + dataForTransactionDTO.getValueTransaction();
+        accountEntityOldClient.setBalance(accountValue);
+        this.accountRepository.save(accountEntityOldClient);
+    }
+
+    private void updateBalanceAccount(AccountEntity accountEntity, int valor) {
         AccountEntity account = this.accountRepository.findByNumberAccount(accountEntity.getNumberAccount());
         account.setBalance(valor);
         this.accountRepository.save(accountEntity);
     }
-    private HistoricTransactionEntity convertHistoricToSave(AccountEntity accountEntity,
-                                                            DataForTransactionDTO dataForTransactionDTO,
-                                                            BigDecimal totalValue) {
+    private HistoricTransactionEntity convertHistoricToSave(
+            AccountEntity accountEntity,
+            DataForTransactionDTO dataForTransactionDTO,
+            int totalValue) {
+
         HistoricTransactionDTO historicTransactionDTO = new HistoricTransactionDTO();
+
         return new HistoricTransactionEntity(
                 historicTransactionDTO.getId(),
                 accountEntity.getNumberAccount(),
@@ -86,6 +118,7 @@ public class HistoricTransactionService {
                 accountEntity.getClientEntity().getName()
         );
     }
+
 
 
 }
