@@ -112,7 +112,16 @@ public class HistoricTransactionService {
         AccountEntity accountEntity = this.accountRepository
                 .findByNumberAccount(dataForTransactionDTO.getAccountOtherClient());
         String clientName = accountEntity.getClientEntity().getName();
+        this.ClientOldTransaction(accountEntity, dataForTransactionDTO);
         return clientName;
+    }
+    private void ClientOldTransaction(AccountEntity accountEntity, DataForTransactionDTO dataForTransactionDTO) {
+        int newValue = accountEntity.getBalance() + dataForTransactionDTO.getValueTransaction();
+        accountEntity.setBalance(newValue);
+
+        this.historicTransactionRepository.save(this.convertHistoricToSave(accountEntity,
+                dataForTransactionDTO,
+                newValue));
     }
     private void updateTransactionOldClient(DataForTransactionDTO dataForTransactionDTO) {
         AccountEntity accountEntityOldClient = this.accountRepository
