@@ -16,7 +16,7 @@ public class ClientPhotoController {
     public void store(
             @PathVariable Long clienteId,
             @RequestParam MultipartFile arquivo) {
-        var nomeArquivo = UUID.randomUUID().toString() +"_"+ arquivo.getOriginalFilename();
+        var nomeArquivo = UUID.randomUUID().toString()+"_"+ arquivo.getOriginalFilename();
         var arquivoFoto = Path.of("C:/Users/l.barbosa.da.silva/Desktop/multbanck/img_banco", nomeArquivo);
 
         try{
