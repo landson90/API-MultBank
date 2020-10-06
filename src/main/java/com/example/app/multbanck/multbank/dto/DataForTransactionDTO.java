@@ -1,8 +1,6 @@
 package com.example.app.multbanck.multbank.dto;
 
-import com.example.app.multbanck.multbank.modal.enums.TransactionEnum;
-
-import java.math.BigDecimal;
+import com.example.app.multbanck.multbank.model.enums.TransactionEnum;
 
 public class DataForTransactionDTO {
 

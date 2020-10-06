@@ -1,9 +1,8 @@
-package com.example.app.multbanck.multbank.modal;
+package com.example.app.multbanck.multbank.model;
 
-import com.example.app.multbanck.multbank.modal.enums.TransactionEnum;
+import com.example.app.multbanck.multbank.model.enums.TransactionEnum;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity

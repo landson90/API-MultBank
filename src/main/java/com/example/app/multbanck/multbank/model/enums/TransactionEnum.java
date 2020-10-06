@@ -1,4 +1,4 @@
-package com.example.app.multbanck.multbank.modal.enums;
+package com.example.app.multbanck.multbank.model.enums;
 
 public enum TransactionEnum {
     DEPOSITO,

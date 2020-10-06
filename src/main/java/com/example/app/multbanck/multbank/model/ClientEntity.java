@@ -1,6 +1,4 @@
-package com.example.app.multbanck.multbank.modal;
-
-import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
+package com.example.app.multbanck.multbank.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
 package com.example.app.multbanck.multbank.dto;
 
-import com.example.app.multbanck.multbank.modal.ClientEntity;
-import com.example.app.multbanck.multbank.modal.PhotoEntity;
+import com.example.app.multbanck.multbank.model.ClientEntity;
+import com.example.app.multbanck.multbank.model.PhotoEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PhotoDTO {

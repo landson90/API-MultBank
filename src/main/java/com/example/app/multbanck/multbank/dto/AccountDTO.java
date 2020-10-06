@@ -1,13 +1,7 @@
 package com.example.app.multbanck.multbank.dto;
 
-import com.example.app.multbanck.multbank.modal.AccountEntity;
-import com.example.app.multbanck.multbank.modal.ClientEntity;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.math.BigDecimal;
+import com.example.app.multbanck.multbank.model.AccountEntity;
+import com.example.app.multbanck.multbank.model.ClientEntity;
 
 public class AccountDTO {
 

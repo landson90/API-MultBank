@@ -1,19 +1,16 @@
 package com.example.app.multbanck.multbank.service;
 
 import com.example.app.multbanck.multbank.dto.*;
-import com.example.app.multbanck.multbank.modal.AccountEntity;
-import com.example.app.multbanck.multbank.modal.ClientEntity;
-import com.example.app.multbanck.multbank.modal.HistoricTransactionEntity;
+import com.example.app.multbanck.multbank.model.AccountEntity;
+import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
 import com.example.app.multbanck.multbank.repository.AccountRepository;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import com.example.app.multbanck.multbank.repository.HistoricTransactionRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.math.BigDecimal;
 import java.net.URI;
 
 @Service

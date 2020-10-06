@@ -3,7 +3,7 @@ package com.example.app.multbanck.multbank.service;
 import com.example.app.multbanck.multbank.config.exceptionValidation.ObjectNotFoundException;
 import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.dto.ClientUpdateDTO;
-import com.example.app.multbanck.multbank.modal.ClientEntity;
+import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

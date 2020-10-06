@@ -1,7 +1,6 @@
-package com.example.app.multbanck.multbank.modal;
+package com.example.app.multbanck.multbank.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity

@@ -1,8 +1,7 @@
 package com.example.app.multbanck.multbank.dto;
 
 import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
-import com.example.app.multbanck.multbank.config.validator.customized.ClientUpdate;
-import com.example.app.multbanck.multbank.modal.ClientEntity;
+import com.example.app.multbanck.multbank.model.ClientEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;

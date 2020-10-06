@@ -1,15 +1,10 @@
 package com.example.app.multbanck.multbank.dto;
 
-import com.example.app.multbanck.multbank.modal.HistoricTransactionEntity;
-import com.example.app.multbanck.multbank.modal.enums.TransactionEnum;
+import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
+import com.example.app.multbanck.multbank.model.enums.TransactionEnum;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class HistoricTransactionDTO {
 

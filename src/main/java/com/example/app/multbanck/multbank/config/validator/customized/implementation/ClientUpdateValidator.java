@@ -2,9 +2,8 @@ package com.example.app.multbanck.multbank.config.validator.customized.implement
 
 import com.example.app.multbanck.multbank.config.validator.FieldMessage;
 import com.example.app.multbanck.multbank.config.validator.customized.ClientUpdate;
-import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.dto.ClientUpdateDTO;
-import com.example.app.multbanck.multbank.modal.ClientEntity;
+import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
