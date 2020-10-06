@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.controller;
 
+import com.example.app.multbanck.multbank.dto.ClientPhotoFormDTO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,4 +27,12 @@ public class ClientPhotoController {
         }
 
     }
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void create(
+            @PathVariable Long id,
+            @RequestBody  ClientPhotoFormDTO clientPhotoFormDTO
+    ) {
+
+    }
+
 }
