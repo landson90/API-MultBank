@@ -1,7 +1,13 @@
 package com.example.app.multbanck.multbank.controller;
 
+import com.example.app.multbanck.multbank.dto.ClientPhotoDTO;
 import com.example.app.multbanck.multbank.dto.ClientPhotoFormDTO;
+import com.example.app.multbanck.multbank.model.ClientEntity;
+import com.example.app.multbanck.multbank.model.ClientPhotoEntity;
+import com.example.app.multbanck.multbank.service.ClientPhotoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,29 +16,23 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("clientes/{clienteId}/foto")
+@RequestMapping(value = "clientes/{clienteId}/foto")
 public class ClientPhotoController {
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void store(
-            @PathVariable Long clienteId,
-            @RequestParam MultipartFile arquivo) {
-        var nomeArquivo = UUID.randomUUID().toString()+"_"+ arquivo.getOriginalFilename();
-        var arquivoFoto = Path.of("C:/Users/l.barbosa.da.silva/Desktop/multbanck/img_banco", nomeArquivo);
+    private ClientPhotoService clientPhotoService;
 
-        try{
-            arquivo.transferTo(arquivoFoto);
-        }catch (Exception e) {
-            throw  new RuntimeException(e);
-        }
 
+    @Autowired
+    public ClientPhotoController(ClientPhotoService clientPhotoService) {
+        this.clientPhotoService = clientPhotoService;
     }
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void create(
-            @PathVariable Long id,
-            @RequestBody  ClientPhotoFormDTO clientPhotoFormDTO
-    ) {
 
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ClientPhotoDTO> create(
+            @PathVariable Long clienteId,
+            ClientPhotoFormDTO clientPhotoFormDTO
+    ) {
+        return this.clientPhotoService.store(clienteId, clientPhotoFormDTO);
     }
 
 }

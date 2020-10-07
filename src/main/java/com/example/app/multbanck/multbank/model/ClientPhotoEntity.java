@@ -4,13 +4,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "foto_cliente")
+@Table(name = "foto")
 public class ClientPhotoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "cliente_id")
+
+    @OneToOne
+    @JoinColumn(name = "cliente_id", unique = true)
     private ClientEntity clientEntity;
     private String descricao;
     private String contentType;
