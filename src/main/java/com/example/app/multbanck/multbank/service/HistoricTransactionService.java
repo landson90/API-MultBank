@@ -13,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HistoricTransactionService {
@@ -159,8 +160,10 @@ public class HistoricTransactionService {
         return accountViewDTO;
     }
 
-    public ResponseEntity<List<HistoricTransactionEntity>> accountHistoricTransactionList(Long id) {
+    public ResponseEntity<List<HistoricAccountClientTransactionDTO>> accountHistoricTransactionList(Long id) {
         List<HistoricTransactionEntity> list = this.historicTransactionRepository.findAllAccountHistoricTransactionList(id);
-        return ResponseEntity.ok().body(list);
+        List<HistoricAccountClientTransactionDTO> historic = list.stream()
+                .map(c -> new HistoricAccountClientTransactionDTO(c)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(historic);
     }
 }

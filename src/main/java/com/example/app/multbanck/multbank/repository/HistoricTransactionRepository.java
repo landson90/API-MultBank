@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface HistoricTransactionRepository extends JpaRepository<HistoricTransactionEntity, Long> {
 
-    @Query("SELECT h FROM HistoricTransactionEntity h where account.id = :id")
+    @Query("SELECT h FROM HistoricTransactionEntity h where account.id = :id ORDER BY createAT")
     List<HistoricTransactionEntity> findAllAccountHistoricTransactionList(@Param("id") Long id);
 }

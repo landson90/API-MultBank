@@ -1,8 +1,10 @@
 package com.example.app.multbanck.multbank.model;
 
 import com.example.app.multbanck.multbank.model.enums.TransactionEnum;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
@@ -30,6 +32,10 @@ public class HistoricTransactionEntity {
     @Column(name = "transferencia_cliente")
     private String clientTransaction;
 
+    @CreationTimestamp
+    @Column(name = "create_at")
+    private OffsetDateTime createAT;
+
     public HistoricTransactionEntity() { }
 
     public HistoricTransactionEntity(long id,
@@ -45,6 +51,7 @@ public class HistoricTransactionEntity {
         this.currentValue = currentValue;
         this.clientTransaction = clientTransaction;
     }
+
 
     public long getId() {
         return id;
@@ -92,6 +99,14 @@ public class HistoricTransactionEntity {
 
     public void setClientTransaction(String clientTransaction) {
         this.clientTransaction = clientTransaction;
+    }
+
+    public OffsetDateTime getCreateAT() {
+        return createAT;
+    }
+
+    public void setCreateAT(OffsetDateTime createAT) {
+        this.createAT = createAT;
     }
 
     @Override

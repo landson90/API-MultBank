@@ -2,6 +2,7 @@ package com.example.app.multbanck.multbank.controller;
 
 import com.example.app.multbanck.multbank.dto.AccountViewDTO;
 import com.example.app.multbanck.multbank.dto.DataForTransactionDTO;
+import com.example.app.multbanck.multbank.dto.HistoricAccountClientTransactionDTO;
 import com.example.app.multbanck.multbank.dto.HistoricTransactionDTO;
 import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
 import com.example.app.multbanck.multbank.service.HistoricTransactionService;
@@ -41,7 +42,7 @@ public class HistoricTransactionController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<HistoricTransactionEntity>> accountHistoricTransactionList(
+    public ResponseEntity<List<HistoricAccountClientTransactionDTO>> accountHistoricTransactionList(
             @PathVariable Long id
     ) {
         return this.service.accountHistoricTransactionList(id);
