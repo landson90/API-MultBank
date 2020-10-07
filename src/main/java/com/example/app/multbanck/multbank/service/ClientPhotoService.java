@@ -7,6 +7,7 @@ import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.model.ClientPhotoEntity;
 import com.example.app.multbanck.multbank.repository.ClientPhotoRepository;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
+import com.example.app.multbanck.multbank.repository.Implementation.PhotoStoresImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,18 @@ public class ClientPhotoService {
 
     private ClientRepository clientRepository;
     private ClientPhotoRepository clientPhotoRepository;
+    private PhotoStoresImplementation photoStoresImplementation;
 
     @Autowired
     public ClientPhotoService(
             ClientRepository clientRepository,
-            ClientPhotoRepository clientPhotoRepository)
+            ClientPhotoRepository clientPhotoRepository,
+            PhotoStoresImplementation photoStoresImplementation
+            )
     {
-        this.clientRepository = clientRepository;
-        this.clientPhotoRepository = clientPhotoRepository;
+        this.clientRepository               = clientRepository;
+        this.clientPhotoRepository          = clientPhotoRepository;
+        this.photoStoresImplementation      = photoStoresImplementation;
     }
 
     public ResponseEntity<ClientPhotoDTO> store(Long id,
@@ -42,14 +47,14 @@ public class ClientPhotoService {
         clientPhotoDTO.setTamanho((int) arquivo.getSize());
         ClientPhotoEntity clientEntityIsSave = clientPhotoDTO
                 .convertClientPhotoDtoToClientPhotoEntity(clientPhotoDTO);
+
         this.clientPhotoRepository.save(clientEntityIsSave);
+
+        this.photoStoresImplementation.stores(clientPhotoFormDTO.getMultipartFile());
+
         return ResponseEntity.status(201).body(new ClientPhotoDTO(clientEntityIsSave));
     }
-    /*
-     public ClientEntity show(long id) {
-        return this.filterClientById(id);
-    }
-    */
+
     private ClientEntity filterClientById(long id) {
         Optional<ClientEntity> clientEntity = this.clientRepository.findById(id);
         return clientEntity.

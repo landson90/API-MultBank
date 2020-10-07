@@ -21,7 +21,6 @@ public class ClientPhotoController {
 
     private ClientPhotoService clientPhotoService;
 
-
     @Autowired
     public ClientPhotoController(ClientPhotoService clientPhotoService) {
         this.clientPhotoService = clientPhotoService;
