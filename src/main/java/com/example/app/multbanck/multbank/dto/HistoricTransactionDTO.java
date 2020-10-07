@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.dto;
 
+import com.example.app.multbanck.multbank.model.AccountEntity;
 import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
 import com.example.app.multbanck.multbank.model.enums.TransactionEnum;
 
@@ -11,7 +12,7 @@ public class HistoricTransactionDTO {
     private long id;
     @NotNull
     @NotEmpty(message = "O Campo conta é obrigatório .")
-    private String account;
+    private AccountEntity account;
     private int oldValue;
     private TransactionEnum transactionEnum;
     private int currentValue;
@@ -36,11 +37,11 @@ public class HistoricTransactionDTO {
         this.id = id;
     }
 
-    public String getAccount() {
+    public AccountEntity getAccount() {
         return account;
     }
 
-    public void setAccount(String account) {
+    public void setAccount(AccountEntity account) {
         this.account = account;
     }
 

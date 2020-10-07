@@ -13,8 +13,9 @@ public class HistoricTransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "numero_conta")
-    private String account;
+    @ManyToOne
+    @JoinColumn(name = "conta_id")
+    private AccountEntity account;
 
     @Column(name = "valor_antigo")
     private int oldValue;
@@ -29,10 +30,10 @@ public class HistoricTransactionEntity {
     @Column(name = "transferencia_cliente")
     private String clientTransaction;
 
-
+    public HistoricTransactionEntity() { }
 
     public HistoricTransactionEntity(long id,
-                                     String account,
+                                     AccountEntity account,
                                      int oldValue,
                                      TransactionEnum transactionEnum,
                                      int currentValue,
@@ -53,11 +54,11 @@ public class HistoricTransactionEntity {
         this.id = id;
     }
 
-    public String getAccount() {
+    public AccountEntity getAccount() {
         return account;
     }
 
-    public void setAccount(String account) {
+    public void setAccount(AccountEntity account) {
         this.account = account;
     }
 

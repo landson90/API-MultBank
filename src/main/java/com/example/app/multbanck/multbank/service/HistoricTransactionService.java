@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 public class HistoricTransactionService {
@@ -112,13 +113,11 @@ public class HistoricTransactionService {
         this.ClientOldTransaction(accountEntity, dataForTransactionDTO);
         return clientName;
     }
-    private void ClientOldTransaction(AccountEntity accountEntity, DataForTransactionDTO dataForTransactionDTO) {
-        int newValue = accountEntity.getBalance() + dataForTransactionDTO.getValueTransaction();
-        accountEntity.setBalance(newValue);
 
+    private void ClientOldTransaction(AccountEntity accountEntity, DataForTransactionDTO dataForTransactionDTO) {
         this.historicTransactionRepository.save(this.convertHistoricToSave(accountEntity,
                 dataForTransactionDTO,
-                newValue));
+                accountEntity.getBalance()));
     }
     private void updateTransactionOldClient(DataForTransactionDTO dataForTransactionDTO) {
         AccountEntity accountEntityOldClient = this.accountRepository
@@ -142,7 +141,7 @@ public class HistoricTransactionService {
 
         return new HistoricTransactionEntity(
                 historicTransactionDTO.getId(),
-                accountEntity.getNumberAccount(),
+                accountEntity,
                 accountEntity.getBalance(),
                 dataForTransactionDTO.getTransactionEnum(),
                 totalValue,
@@ -160,6 +159,8 @@ public class HistoricTransactionService {
         return accountViewDTO;
     }
 
-
-
+    public ResponseEntity<List<HistoricTransactionEntity>> accountHistoricTransactionList(Long id) {
+        List<HistoricTransactionEntity> list = this.historicTransactionRepository.findAllAccountHistoricTransactionList(id);
+        return ResponseEntity.ok().body(list);
+    }
 }

@@ -3,10 +3,13 @@ package com.example.app.multbanck.multbank.controller;
 import com.example.app.multbanck.multbank.dto.AccountViewDTO;
 import com.example.app.multbanck.multbank.dto.DataForTransactionDTO;
 import com.example.app.multbanck.multbank.dto.HistoricTransactionDTO;
+import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
 import com.example.app.multbanck.multbank.service.HistoricTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/historico")
@@ -35,6 +38,15 @@ public class HistoricTransactionController {
             @RequestBody DataForTransactionDTO dataForTransactionDTO) {
         return this.service.transaction(dataForTransactionDTO);
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<HistoricTransactionEntity>> accountHistoricTransactionList(
+            @PathVariable Long id
+    ) {
+        return this.service.accountHistoricTransactionList(id);
+    }
+
 
 
 }
