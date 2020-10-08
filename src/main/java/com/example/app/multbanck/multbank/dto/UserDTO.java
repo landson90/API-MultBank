@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserDTO {
 
-    private Integer id;
+    private Long id;
     private String nome;
     private String email;
     private String password;
@@ -25,11 +25,11 @@ public class UserDTO {
         this.password = userEntity.getPassword();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

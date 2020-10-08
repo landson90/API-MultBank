@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.config.security;
 
+import com.example.app.multbanck.multbank.repository.UserRepository;
 import com.example.app.multbanck.multbank.service.AutenticacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -24,13 +26,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+
     @Override
     @Bean
    public AuthenticationManager authenticationManager() throws Exception {
        return super.authenticationManager();
    }
-
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -41,11 +45,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/auth").permitAll()
-                .antMatchers(HttpMethod.POST,"/usuarios").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .antMatchers(HttpMethod.POST,"/auth")
+                .permitAll()
+                .antMatchers(HttpMethod.POST,"/usuarios")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf()
+                .disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(new AuthenticationAuthenticationTokenFilter(tokenService, userRepository)
+                        , UsernamePasswordAuthenticationFilter.class);
+
     }
 
     // Configuração para acessar arquivos do tipo CSS, JS e outros

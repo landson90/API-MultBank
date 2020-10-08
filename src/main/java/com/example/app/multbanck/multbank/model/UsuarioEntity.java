@@ -16,7 +16,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String nome;
     private String email;
     private String password;
@@ -26,18 +26,18 @@ public class UsuarioEntity implements UserDetails {
 
     public UsuarioEntity() { }
 
-    public UsuarioEntity(Integer id, String nome, String email, String password) {
+    public UsuarioEntity(Long id, String nome, String email, String password) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.password = password;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
