@@ -1,7 +1,10 @@
 package com.example.app.multbanck.multbank.service;
 
+import com.example.app.multbanck.multbank.dto.ClientDTO;
+import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.dto.UserDTO;
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
+import com.example.app.multbanck.multbank.repository.ClientRepository;
 import com.example.app.multbanck.multbank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +17,31 @@ import java.net.URI;
 public class UserService {
 
     private UserRepository userRepository;
+    private ClientRepository clientRepository;
 
     @Autowired
-    public  UserService(UserRepository userRepository) {
+    public  UserService(UserRepository userRepository,
+                        ClientRepository clientRepository) {
         this.userRepository = userRepository;
+        this.clientRepository = clientRepository;
     }
 
-    public ResponseEntity<UserDTO> store(UserDTO userDTO) {
-        UsuarioEntity userEntity = this.convertClientDtoToClientEntity(userDTO);
+    public ResponseEntity<UserDTO> store(UserClientDTO userClientDTO) {
+        UserDTO userDTO = new UserDTO();
+
+        UsuarioEntity userEntity = this.convertClientDtoToClientEntity(userDTO
+                .convertUserClientDTO(userClientDTO));
         userEntity = this.userRepository.save(userEntity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(userEntity.getId()).toUri();
+        this.createClient(userClientDTO);
         return ResponseEntity.created(uri).body(new UserDTO(userEntity));
+    }
+
+    private void createClient(UserClientDTO userClientDTO) {
+        UserClientDTO clientDTO = userClientDTO;
+        this.clientRepository.save(clientDTO.convertUserClientDTOToClientEntity(userClientDTO));
     }
 
     private UsuarioEntity convertClientDtoToClientEntity(UserDTO userDTO) {

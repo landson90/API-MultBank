@@ -1,6 +1,7 @@
 package com.example.app.multbanck.multbank.controller;
 
 import com.example.app.multbanck.multbank.dto.ClientDTO;
+import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.dto.UserDTO;
 import com.example.app.multbanck.multbank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<UserDTO> store(@RequestBody @Valid UserDTO userDTO) {
-        return this.userService.store(userDTO);
+    public ResponseEntity<UserDTO> store(@RequestBody @Valid UserClientDTO userClientDTO) {
+        return this.userService.store(userClientDTO);
     }
 }
