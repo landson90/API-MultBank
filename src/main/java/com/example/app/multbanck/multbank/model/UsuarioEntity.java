@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "usuario")
-public class UserEntity implements UserDetails {
+public class UsuarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,9 @@ public class UserEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<ProfileEntity> perfil = new ArrayList<>();
 
-    public UserEntity() { }
+    public UsuarioEntity() { }
 
-    public UserEntity(Integer id, String nome, String email, String password) {
+    public UsuarioEntity(Integer id, String nome, String email, String password) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -69,27 +69,27 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setPassword(String password) {
@@ -108,7 +108,7 @@ public class UserEntity implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
+        UsuarioEntity that = (UsuarioEntity) o;
         return id.equals(that.id);
     }
 

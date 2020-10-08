@@ -1,4 +1,4 @@
-package com.example.app.multbanck.multbank.service;
+package com.example.app.multbanck.multbank.config.security;
 
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import com.example.app.multbanck.multbank.repository.UserRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AutenticacaoService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -19,11 +19,10 @@ public class AutenticacaoService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UsuarioEntity> usuario = userRepository.findByEmail(username);
-
-        if (usuario.isPresent()) {
+        if(usuario.isPresent()) {
             return usuario.get();
         }
         throw new UsernameNotFoundException("Dados inválidos !");
-    }
 
+    }
 }

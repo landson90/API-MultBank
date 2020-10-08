@@ -57,4 +57,6 @@ public class AccountViewDTO {
     public void setTransfer(String transfer) {
         this.transfer = transfer;
     }
+
+
 }
