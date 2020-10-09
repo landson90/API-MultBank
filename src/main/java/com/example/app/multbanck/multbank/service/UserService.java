@@ -35,6 +35,7 @@ public class UserService {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(userEntity.getId()).toUri();
+        userClientDTO.setUserId(userEntity.getId());
         this.createClient(userClientDTO);
         return ResponseEntity.created(uri).body(new UserDTO(userEntity));
     }

@@ -25,6 +25,8 @@ public class ClientUpdateDTO {
     @NotNull(message = "O Campo data de nascimento é obrigatório .")
     private LocalDate dateOfBirth;
 
+    private Long userId;
+
     public ClientUpdateDTO() { }
 
     public ClientUpdateDTO(ClientEntity clientEntity) {
@@ -32,6 +34,7 @@ public class ClientUpdateDTO {
         this.name        = clientEntity.getName();
         this.dateOfBirth = clientEntity.getDateOfBirth();
         this.cpf         = clientEntity.getCpf();
+        this.userId      = clientEntity.getUserId();
     }
 
     public Long getId() {
@@ -64,5 +67,13 @@ public class ClientUpdateDTO {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

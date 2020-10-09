@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@ClientInsert
+
 public class ClientDTO {
 
     private Long id;
@@ -25,6 +25,8 @@ public class ClientDTO {
     @NotNull(message = "O Campo data de nascimento é obrigatório .")
     private LocalDate dateOfBirth;
 
+    private Long userId;
+
     public ClientDTO() { }
 
     public ClientDTO(ClientEntity clientEntity) {
@@ -32,6 +34,7 @@ public class ClientDTO {
         this.name        = clientEntity.getName();
         this.dateOfBirth = clientEntity.getDateOfBirth();
         this.cpf         = clientEntity.getCpf();
+        this.userId      = clientEntity.getUserId();
     }
     public Long getId() {
         return id;
@@ -63,6 +66,14 @@ public class ClientDTO {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

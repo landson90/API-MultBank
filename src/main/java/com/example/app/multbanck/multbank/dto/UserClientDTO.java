@@ -1,5 +1,6 @@
 package com.example.app.multbanck.multbank.dto;
 
+import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
 import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import org.hibernate.validator.constraints.Length;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@ClientInsert
 public class UserClientDTO {
 
     private Long id;
@@ -36,6 +38,8 @@ public class UserClientDTO {
     @NotNull(message = "O Campo data de nascimento é obrigatório .")
     private LocalDate dateOfBirth;
 
+    private Long userId;
+
     public UserClientDTO() {
     }
 
@@ -45,13 +49,15 @@ public class UserClientDTO {
                          String password,
                          String name,
                          String cpf,
-                         LocalDate dateOfBirth) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.cpf = cpf;
-        this.dateOfBirth = dateOfBirth;
+                         LocalDate dateOfBirth,
+                         Long userId) {
+        this.id             = id;
+        this.email          = email;
+        this.password       = password;
+        this.name           = name;
+        this.cpf            = cpf;
+        this.dateOfBirth    = dateOfBirth;
+        this.userId         = userId;
     }
 
     public String getEmail() {
@@ -102,13 +108,21 @@ public class UserClientDTO {
         this.id = id;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public ClientEntity convertUserClientDTOToClientEntity(UserClientDTO userClientDTO) {
         return new ClientEntity(
                 userClientDTO.getId(),
                 userClientDTO.getName(),
                 userClientDTO.getDateOfBirth(),
-                userClientDTO.getCpf()
+                userClientDTO.getCpf(),
+                userClientDTO.getUserId()
         );
     }
 }
