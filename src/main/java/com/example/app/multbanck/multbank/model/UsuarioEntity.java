@@ -18,7 +18,9 @@ public class UsuarioEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
     private String email;
+
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

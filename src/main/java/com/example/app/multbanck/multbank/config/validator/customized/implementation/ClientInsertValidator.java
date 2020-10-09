@@ -6,7 +6,9 @@ import com.example.app.multbanck.multbank.config.validator.FieldMessage;
 import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.model.ClientEntity;
+import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
+import com.example.app.multbanck.multbank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;
@@ -18,6 +20,9 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public void initialize(ClientInsert constraintAnnotation) {
@@ -32,6 +37,7 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
         if(clientEntity != null) {
             list.add(new FieldMessage("cpf", "CPF ja cadastrado !"));
         }
+
         for (FieldMessage e : list) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(

@@ -2,7 +2,6 @@ package com.example.app.multbanck.multbank.dto;
 
 import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
 import com.example.app.multbanck.multbank.model.ClientEntity;
-import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
@@ -49,15 +48,14 @@ public class UserClientDTO {
                          String password,
                          String name,
                          String cpf,
-                         LocalDate dateOfBirth,
-                         Long userId) {
+                         LocalDate dateOfBirth) {
         this.id             = id;
         this.email          = email;
         this.password       = password;
         this.name           = name;
         this.cpf            = cpf;
         this.dateOfBirth    = dateOfBirth;
-        this.userId         = userId;
+
     }
 
     public String getEmail() {
