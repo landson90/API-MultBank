@@ -74,13 +74,15 @@ public class ClientService {
                 clientDTO.getId(),
                 clientDTO.getName(),
                 clientDTO.getDateOfBirth(),
-                clientDTO.getCpf());
+                clientDTO.getCpf(),
+                clientDTO.getUserId());
     }
     private ClientEntity convertClientUpdateDtoToClientEntity(ClientUpdateDTO clientDTO) {
         return new ClientEntity(
                 clientDTO.getId(),
                 clientDTO.getName(),
                 clientDTO.getDateOfBirth(),
-                clientDTO.getCpf());
+                clientDTO.getCpf(),
+                clientDTO.getUserId());
     }
 }
