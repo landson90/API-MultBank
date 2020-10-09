@@ -15,8 +15,7 @@ public class UserClientDTO {
     private Long id;
 
     @NotNull
-    @Email
-    @NotEmpty(message = "O Campo nome é obrigatório .")
+    @NotEmpty(message = "O Campo email. é obrigatório .")
     private String email;
 
     @NotNull
