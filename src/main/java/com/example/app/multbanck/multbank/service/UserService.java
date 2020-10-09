@@ -1,6 +1,5 @@
 package com.example.app.multbanck.multbank.service;
 
-import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.dto.UserDTO;
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
@@ -18,32 +17,35 @@ public class UserService {
 
     private UserRepository userRepository;
     private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @Autowired
     public  UserService(UserRepository userRepository,
-                        ClientRepository clientRepository) {
+                        ClientRepository clientRepository,
+                        ClientService clientService) {
         this.userRepository = userRepository;
         this.clientRepository = clientRepository;
+        this.clientService = clientService;
     }
 
     public ResponseEntity<UserDTO> store(UserClientDTO userClientDTO) {
+
         UserDTO userDTO = new UserDTO();
 
         UsuarioEntity userEntity = this.convertClientDtoToClientEntity(userDTO
                 .convertUserClientDTO(userClientDTO));
+
         userEntity = this.userRepository.save(userEntity);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(userEntity.getId()).toUri();
         userClientDTO.setUserId(userEntity.getId());
-        this.createClient(userClientDTO);
+
+        this.clientService.createClient(userClientDTO);
         return ResponseEntity.created(uri).body(new UserDTO(userEntity));
     }
 
-    private void createClient(UserClientDTO userClientDTO) {
-        UserClientDTO clientDTO = userClientDTO;
-        this.clientRepository.save(clientDTO.convertUserClientDTOToClientEntity(userClientDTO));
-    }
+
 
     private UsuarioEntity convertClientDtoToClientEntity(UserDTO userDTO) {
         return new UsuarioEntity(
@@ -53,4 +55,5 @@ public class UserService {
                 userDTO.getPassword()
         );
     }
+
 }

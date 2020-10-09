@@ -7,10 +7,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserDTO {
 
     private Long id;
     private String nome;
+
     private String email;
     private String password;
     private List<ProfileEntity> perfil = new ArrayList<>();
