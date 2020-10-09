@@ -19,6 +19,7 @@ public class UsuarioEntity implements UserDetails {
     private Long id;
     private String nome;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
