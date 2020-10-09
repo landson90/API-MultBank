@@ -34,9 +34,16 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
         List<FieldMessage> list = new ArrayList<>();
 
         ClientEntity clientEntity = this.clientRepository.findByCpf(value.getCpf());
+        UsuarioEntity usuarioEntity = this.userRepository.filtroPorEmail(value.getEmail());
+
         if(clientEntity != null) {
             list.add(new FieldMessage("cpf", "CPF ja cadastrado !"));
         }
+
+        if(usuarioEntity != null) {
+            list.add(new FieldMessage("email", "Email ja cadastrado !"));
+        }
+
 
         for (FieldMessage e : list) {
             context.disableDefaultConstraintViolation();
