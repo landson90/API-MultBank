@@ -67,14 +67,4 @@ public class UserDTO {
         this.perfil = perfil;
     }
 
-    public UserDTO convertUserClientDTO(UserClientDTO userClientDTO) {
-
-        UserDTO usuarioDTO = new UserDTO();
-        usuarioDTO.setId(userClientDTO.getId());
-        usuarioDTO.setEmail(userClientDTO.getEmail());
-        usuarioDTO.setNome( userClientDTO.getName());
-        usuarioDTO.setPassword( userClientDTO.getEmail());
-
-        return usuarioDTO;
-    }
 }

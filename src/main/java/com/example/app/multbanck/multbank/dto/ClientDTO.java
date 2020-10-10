@@ -2,6 +2,7 @@ package com.example.app.multbanck.multbank.dto;
 
 import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
 import com.example.app.multbanck.multbank.model.ClientEntity;
+import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -25,17 +26,19 @@ public class ClientDTO {
     @NotNull(message = "O Campo data de nascimento é obrigatório .")
     private LocalDate dateOfBirth;
 
-    private Long userId;
+    private UsuarioEntity usuarioEntity;
 
-    public ClientDTO() { }
+    public ClientDTO() {
+    }
 
     public ClientDTO(ClientEntity clientEntity) {
-        this.id          = clientEntity.getId();
-        this.name        = clientEntity.getName();
+        this.id = clientEntity.getId();
+        this.name = clientEntity.getName();
+        this.cpf = clientEntity.getCpf();
         this.dateOfBirth = clientEntity.getDateOfBirth();
-        this.cpf         = clientEntity.getCpf();
-        this.userId      = clientEntity.getUserId();
+        this.usuarioEntity = clientEntity.getUsuarioEntity();
     }
+
     public Long getId() {
         return id;
     }
@@ -68,21 +71,11 @@ public class ClientDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UsuarioEntity getUsuarioEntity() {
+        return usuarioEntity;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "ClientDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                '}';
+    public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+        this.usuarioEntity = usuarioEntity;
     }
 }

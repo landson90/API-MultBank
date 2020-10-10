@@ -23,17 +23,19 @@ public class ClientEntity {
     @Column(unique = true)
     private String cpf;
 
-    @Column(name = "usuario_id")
-    private Long userId;
+    @OneToOne
+    @JoinColumn(name = "usuario_id", unique = true)
+    private UsuarioEntity usuarioEntity;
 
-    public ClientEntity() { }
+    public ClientEntity() {
+    }
 
-    public ClientEntity(Long id, String name, LocalDate dateOfBirth, String cpf, Long userId) {
-        this.id             = id;
-        this.name           = name;
-        this.dateOfBirth    = dateOfBirth;
-        this.cpf            = cpf;
-        this.userId         = userId;
+    public ClientEntity(Long id, String name, LocalDate dateOfBirth, String cpf, UsuarioEntity usuarioEntity) {
+        this.id = id;
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.cpf = cpf;
+        this.usuarioEntity = usuarioEntity;
     }
 
     public Long getId() {
@@ -68,12 +70,12 @@ public class ClientEntity {
         this.cpf = cpf;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UsuarioEntity getUsuarioEntity() {
+        return usuarioEntity;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+        this.usuarioEntity = usuarioEntity;
     }
 
     @Override
@@ -87,15 +89,5 @@ public class ClientEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "ClientEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", cpf='" + cpf + '\'' +
-                '}';
     }
 }

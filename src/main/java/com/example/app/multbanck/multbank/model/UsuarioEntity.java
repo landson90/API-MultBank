@@ -17,7 +17,8 @@ public class UsuarioEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+
+    private String name;
 
     @Column(unique = true)
     private String email;
@@ -29,9 +30,9 @@ public class UsuarioEntity implements UserDetails {
 
     public UsuarioEntity() { }
 
-    public UsuarioEntity(Long id, String nome, String email, String password) {
+    public UsuarioEntity(Long id, String name, String email, String password) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.email = email;
         this.password = password;
     }
@@ -44,12 +45,12 @@ public class UsuarioEntity implements UserDetails {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

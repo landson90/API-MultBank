@@ -3,8 +3,6 @@ package com.example.app.multbanck.multbank.config.validator.customized.implement
 
 import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
 import com.example.app.multbanck.multbank.config.validator.FieldMessage;
-import com.example.app.multbanck.multbank.dto.ClientDTO;
-import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
