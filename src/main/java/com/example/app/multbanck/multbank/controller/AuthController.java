@@ -29,9 +29,9 @@ public class AuthController {
 
     @PostMapping
     public ResponseEntity<TokenDTO> login(@RequestBody @Valid AuthUserDTO dataFormLogin) {
-        UsernamePasswordAuthenticationToken autenticacaoUsuario = dataFormLogin.converteAuthLogin();
 
         try {
+            UsernamePasswordAuthenticationToken autenticacaoUsuario = dataFormLogin.converteAuthLogin();
             Authentication authentication = this.authenticationManager.authenticate(autenticacaoUsuario);
 
             String token = this.tokenService.storeToken(authentication);
