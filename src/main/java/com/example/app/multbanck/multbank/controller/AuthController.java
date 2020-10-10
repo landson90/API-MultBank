@@ -20,18 +20,24 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
+
     private AuthenticationManager authenticationManager;
-    @Autowired
+
     private TokenService tokenService;
 
-
+    @Autowired
+    public AuthController(TokenService tokenService,
+                          AuthenticationManager authenticationManager) {
+        this.tokenService = tokenService;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping
     public ResponseEntity<TokenDTO> login(@RequestBody @Valid AuthUserDTO dataFormLogin) {
-        UsernamePasswordAuthenticationToken autenticacaoUsuario = dataFormLogin.converteAuthLogin();
 
         try {
+            UsernamePasswordAuthenticationToken autenticacaoUsuario = dataFormLogin.converteAuthLogin();
+
             Authentication authentication = this.authenticationManager.authenticate(autenticacaoUsuario);
 
             String token = this.tokenService.storeToken(authentication);
