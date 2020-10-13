@@ -27,7 +27,6 @@ public class ClientUpdateDTO {
     private LocalDate dateOfBirth;
 
     private UsuarioEntity usuarioEntity;
-
     public ClientUpdateDTO() { }
 
     public ClientUpdateDTO(ClientEntity clientEntity) {

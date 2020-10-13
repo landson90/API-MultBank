@@ -23,6 +23,7 @@ public class ClientEntity {
     @Column(unique = true)
     private String cpf;
 
+<<<<<<< HEAD
     @OneToOne
     @JoinColumn(name = "usuario_id", unique = true)
     private UsuarioEntity usuarioEntity;
@@ -36,6 +37,19 @@ public class ClientEntity {
         this.dateOfBirth = dateOfBirth;
         this.cpf = cpf;
         this.usuarioEntity = usuarioEntity;
+=======
+    @Column(name = "usuario_id")
+    private Long userId;
+
+    public ClientEntity() { }
+
+    public ClientEntity(Long id, String name, LocalDate dateOfBirth, String cpf, Long userId) {
+        this.id             = id;
+        this.name           = name;
+        this.dateOfBirth    = dateOfBirth;
+        this.cpf            = cpf;
+        this.userId         = userId;
+>>>>>>> 48e87aeb49b151cc896d5b2f6bd2f6214d8ee945
     }
 
     public Long getId() {
@@ -70,12 +84,21 @@ public class ClientEntity {
         this.cpf = cpf;
     }
 
+<<<<<<< HEAD
     public UsuarioEntity getUsuarioEntity() {
         return usuarioEntity;
     }
 
     public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
         this.usuarioEntity = usuarioEntity;
+=======
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+>>>>>>> 48e87aeb49b151cc896d5b2f6bd2f6214d8ee945
     }
 
     @Override

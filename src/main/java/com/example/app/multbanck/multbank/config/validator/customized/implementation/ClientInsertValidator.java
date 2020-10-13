@@ -3,7 +3,8 @@ package com.example.app.multbanck.multbank.config.validator.customized.implement
 
 import com.example.app.multbanck.multbank.config.validator.customized.ClientInsert;
 import com.example.app.multbanck.multbank.config.validator.FieldMessage;
-import com.example.app.multbanck.multbank.dto.ClientUserDTO;
+import com.example.app.multbanck.multbank.dto.ClientDTO;
+import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
@@ -15,7 +16,7 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientUserDTO> {
+public class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientDTO> {
 
     @Autowired
     private ClientRepository clientRepository;
@@ -29,7 +30,7 @@ public class ClientInsertValidator implements ConstraintValidator<ClientInsert, 
     }
 
     @Override
-    public boolean isValid(ClientUserDTO value, ConstraintValidatorContext context) {
+    public boolean isValid(UserClientDTO value, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
         ClientEntity clientEntity = this.clientRepository.findByCpf(value.getCpf());
