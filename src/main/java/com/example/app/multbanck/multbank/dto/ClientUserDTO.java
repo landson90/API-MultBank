@@ -11,12 +11,9 @@ import java.time.LocalDate;
 @ClientInsert
 public class ClientUserDTO {
 
-
-    @NotEmpty
     @NotEmpty(message = "O nome é obrigatório .")
-    private String name;
+    private String nome;
 
-    @NotEmpty
     @NotEmpty(message = "O Email é obrigatório .")
     @Email
     private String email;
@@ -40,11 +37,11 @@ public class ClientUserDTO {
     }
 
     public String getNome() {
-        return name;
+        return nome;
     }
 
     public void setNome(String nome) {
-        this.name = nome;
+        this.nome = nome;
     }
 
     public String getEmail() {

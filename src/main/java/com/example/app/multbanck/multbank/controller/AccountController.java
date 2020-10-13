@@ -21,11 +21,6 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<AccountDTO> store(@RequestBody @Valid AccountDTO accountDTO) {
-        return this.accountService.store(accountDTO);
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<AccountDTO> show(@PathVariable long id) {
