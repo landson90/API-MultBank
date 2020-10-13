@@ -36,7 +36,7 @@ public class ClientDTO {
         this.name = clientEntity.getName();
         this.cpf = clientEntity.getCpf();
         this.dateOfBirth = clientEntity.getDateOfBirth();
-        this.cpf         = clientEntity.getCpf();
+        this.usuarioEntity = clientEntity.getUsuarioEntity();
     }
 
     public Long getId() {
@@ -69,14 +69,6 @@ public class ClientDTO {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public String toString() {
-        return "ClientDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", cpf='" + cpf + '\'' +
     }
 
     public void setUsuarioEntity(UsuarioEntity usuarioEntity) {

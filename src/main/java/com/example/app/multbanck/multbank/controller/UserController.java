@@ -1,9 +1,7 @@
 package com.example.app.multbanck.multbank.controller;
 
-import com.example.app.multbanck.multbank.dto.ClientDTO;
 import com.example.app.multbanck.multbank.dto.UserClientDTO;
 import com.example.app.multbanck.multbank.dto.UserDTO;
-import com.example.app.multbanck.multbank.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
