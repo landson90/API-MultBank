@@ -57,7 +57,7 @@ public class ClientService {
                 clientDTO.getName(),
                 clientDTO.getDateOfBirth(),
                 clientDTO.getCpf(),
-                clientDTO.getUserId());
+                clientDTO.getUsuarioEntity());
     }
 
 }
