@@ -112,14 +112,4 @@ public class UserClientDTO {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-
-    public ClientEntity convertUserClientDTOToClientEntity(UserClientDTO userClientDTO) {
-        return new ClientEntity(
-                userClientDTO.getId(),
-                userClientDTO.getName(),
-                userClientDTO.getDateOfBirth(),
-                userClientDTO.getCpf(),
-                userClientDTO.getUserId()
-        );
-    }
 }

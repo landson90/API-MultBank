@@ -14,7 +14,7 @@ public class ClientUserDTO {
 
     @NotEmpty
     @NotEmpty(message = "O nome é obrigatório .")
-    private String nome;
+    private String name;
 
     @NotEmpty
     @NotEmpty(message = "O Email é obrigatório .")
@@ -23,7 +23,7 @@ public class ClientUserDTO {
 
     @NotNull
     @NotEmpty(message = "O Campo password é obrigatório .")
-    @Length(min = 6, max = 11, message = "Deve conter 6 dígitos ou ma .")
+    @Length(min = 6, max = 11, message = "Deve de 6 á 11 dígitos .")
     private String password;
 
     @NotNull
@@ -40,11 +40,11 @@ public class ClientUserDTO {
     }
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.name = nome;
     }
 
     public String getEmail() {
