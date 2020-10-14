@@ -24,7 +24,7 @@ public class UserClientController {
 
     @PostMapping
     public ResponseEntity<UserDTO> createUserClient(
-            @RequestBody  ClientUserDTO clientUserDTO
+            @RequestBody @Valid ClientUserDTO clientUserDTO
             ) {
        return this.clientUserService.createUser(clientUserDTO);
     }

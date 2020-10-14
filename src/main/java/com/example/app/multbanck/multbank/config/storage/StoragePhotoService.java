@@ -12,19 +12,14 @@ import java.nio.file.Path;
 @Service
 public class StoragePhotoService implements StorageService {
 
-
-
-
     @Override
     public void storageClinetPhoto(PhotoClientStorageDTO photoClientStorageDTO) {
 
-
         try {
-            // pegando o caminho onde a foto vai ser salva
+
             Path filePath = Path.of("C:\\Users\\l.barbosa.da.silva\\Desktop\\multbanck\\img_banco",
                     photoClientStorageDTO.getFileName());
-            // FileCopyUtils.copy ==> fazendo um copia da img
-            //  Files.newOutputStream ==> aqui é onde vamos salvar a foto
+
             FileCopyUtils.copy(photoClientStorageDTO.getInputStream(),
                     Files.newOutputStream(filePath));
         } catch (IOException e) {
