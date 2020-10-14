@@ -41,9 +41,11 @@ public class ClientUserAccountService {
         UsuarioEntity isCreateUserEntity = this.userRepository.save(usuarioEntity);
 
         this.createClient(isCreateUserEntity, clientUserDTO);
+
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(isCreateUserEntity.getId()).toUri();
+
         return ResponseEntity.created(uri).body(new UserDTO(isCreateUserEntity));
     }
 

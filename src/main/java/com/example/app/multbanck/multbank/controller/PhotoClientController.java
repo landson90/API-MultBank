@@ -3,6 +3,7 @@ package com.example.app.multbanck.multbank.controller;
 import com.example.app.multbanck.multbank.dto.ClientPhotoInputDTO;
 import com.example.app.multbanck.multbank.service.PhotoClientService;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ public class PhotoClientController {
         this.photoClientService = photoClientService;
     }
 
+    @PostMapping
     public  void store(@PathVariable Long clientID, ClientPhotoInputDTO clientPhotoInputDTO) {
         this.photoClientService.store(clientID, clientPhotoInputDTO);
     }

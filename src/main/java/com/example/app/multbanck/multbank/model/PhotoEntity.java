@@ -11,9 +11,18 @@ public class PhotoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nome_arquivo")
     private String fileName;
+
+    @Column(name = "tipo_arquivo")
     private String contentType;
+
+    @Column(name = "tamanho_arquivo")
     private Long fileSize;
+
+    @OneToOne
+    @JoinColumn(name = "cliente_id", unique = true)
     private ClientEntity clientEntity;
 
     public PhotoEntity() {
