@@ -1,5 +1,9 @@
 package com.example.app.multbanck.multbank.model;
 
+<<<<<<< HEAD
+=======
+import javax.annotation.processing.Generated;
+>>>>>>> 1.8-cliente-usuario-conta
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -14,7 +18,11 @@ public class PhotoEntity {
     @Column(name = "nome_arquivo")
     private String fileName;
 
+<<<<<<< HEAD
     @Column(name = "tipo_conteudo_arquivo")
+=======
+    @Column(name = "tipo_arquivo")
+>>>>>>> 1.8-cliente-usuario-conta
     private String contentType;
 
     @Column(name = "tamanho_arquivo")
@@ -87,4 +95,8 @@ public class PhotoEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1.8-cliente-usuario-conta
