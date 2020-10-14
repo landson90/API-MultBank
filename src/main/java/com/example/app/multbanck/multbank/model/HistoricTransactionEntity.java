@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
-@Table( name = "historico_transaçao")
+@Table( name = "historico_transacao")
 public class HistoricTransactionEntity {
 
     @Id
