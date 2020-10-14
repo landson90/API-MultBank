@@ -28,8 +28,6 @@ public class ClientService {
         return ResponseEntity.ok().body(new ClientDTO(clientEntity));
     }
 
-
-
     public ResponseEntity<ClientDTO> update(long id, ClientUpdateDTO clientDTO) {
         ClientEntity clientEntity = this.filterClientById(id);
         BeanUtils.copyProperties(

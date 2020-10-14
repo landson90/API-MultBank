@@ -3,6 +3,7 @@ package com.example.app.multbanck.multbank.service;
 import ch.qos.logback.core.net.server.Client;
 import com.example.app.multbanck.multbank.dto.AccountDTO;
 import com.example.app.multbanck.multbank.dto.ClientUserDTO;
+import com.example.app.multbanck.multbank.dto.UserDTO;
 import com.example.app.multbanck.multbank.model.AccountEntity;
 import com.example.app.multbanck.multbank.model.ClientEntity;
 import com.example.app.multbanck.multbank.model.UsuarioEntity;
@@ -10,8 +11,11 @@ import com.example.app.multbanck.multbank.repository.AccountRepository;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import com.example.app.multbanck.multbank.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.Random;
 
 @Service
@@ -32,10 +36,15 @@ public class ClientUserAccountService {
         this.accountRepository = accountRepository;
     }
 
-    public void createUser(ClientUserDTO clientUserDTO) {
+    public ResponseEntity<UserDTO> createUser(ClientUserDTO clientUserDTO) {
         UsuarioEntity usuarioEntity = this.convertClientUserDtoInUsuarioEntity(clientUserDTO);
         UsuarioEntity isCreateUserEntity = this.userRepository.save(usuarioEntity);
+
         this.createClient(isCreateUserEntity, clientUserDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(isCreateUserEntity.getId()).toUri();
+        return ResponseEntity.created(uri).body(new UserDTO(isCreateUserEntity));
     }
 
     private void createClient(UsuarioEntity isCreateUserEntity, ClientUserDTO clientUserDTO) {
