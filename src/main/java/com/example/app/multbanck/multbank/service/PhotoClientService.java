@@ -1,6 +1,7 @@
 package com.example.app.multbanck.multbank.service;
 
 
+import com.example.app.multbanck.multbank.config.storage.S3StoragePhotoService;
 import com.example.app.multbanck.multbank.config.storage.StoragePhotoService;
 import com.example.app.multbanck.multbank.dto.ClientPhotoInputDTO;
 import com.example.app.multbanck.multbank.dto.PhotoClientDTO;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.UUID;
 
 
 @Service
@@ -28,15 +30,18 @@ public class PhotoClientService {
     private PhotoClientRepository photoClientRepository;
     private ClientRepository clientRepository;
     private StoragePhotoService storagePhotoService;
+    private S3StoragePhotoService s3StoragePhotoService;
 
     @Autowired
     public  PhotoClientService(PhotoClientRepository photoClientRepository,
                                ClientRepository clientRepository,
-                               StoragePhotoService storagePhotoService) {
+                               StoragePhotoService storagePhotoService,
+                               S3StoragePhotoService s3StoragePhotoService) {
+
         this.photoClientRepository = photoClientRepository;
         this.clientRepository = clientRepository;
-
         this.storagePhotoService = storagePhotoService;
+        this.s3StoragePhotoService = s3StoragePhotoService;
     }
 
 
@@ -46,7 +51,7 @@ public class PhotoClientService {
         PhotoEntity photoEntity = new PhotoEntity();
 
         photoEntity.setContentType(clientPhotoInputDTO.getFile().getContentType());
-        photoEntity.setFileName(clientPhotoInputDTO.getFile().getOriginalFilename());
+        photoEntity.setFileName(UUID.randomUUID().toString()+""+clientPhotoInputDTO.getFile().getOriginalFilename());
         photoEntity.setFileSize(clientPhotoInputDTO.getFile().getSize());
         photoEntity.setClientEntity(clientEntity);
 
@@ -56,7 +61,7 @@ public class PhotoClientService {
         PhotoClientStorageDTO photoClientStorageDTO = new PhotoClientStorageDTO();
         photoClientStorageDTO.setFileName(photoEntity.getFileName());
         photoClientStorageDTO.setInputStream(multipartFile.getInputStream());
-        this.storagePhotoService.storageClinetPhoto(photoClientStorageDTO);
+        this.s3StoragePhotoService.storageClinetPhoto(photoClientStorageDTO);
 
     }
 
