@@ -2,6 +2,7 @@ package com.example.app.multbanck.multbank.controller;
 
 
 import com.example.app.multbanck.multbank.dto.ClientPhotoInputDTO;
+import com.example.app.multbanck.multbank.dto.PhotoClientAwsDTO;
 import com.example.app.multbanck.multbank.dto.PhotoClientDTO;
 import com.example.app.multbanck.multbank.dto.PhotoDTO;
 import com.example.app.multbanck.multbank.service.PhotoClientService;
@@ -37,6 +38,13 @@ public class PhotoClientController {
     public  void store(@PathVariable Long clientID,
                        ClientPhotoInputDTO clientPhotoInputDTO) throws IOException {
         this.photoClientService.store(clientID, clientPhotoInputDTO);
+        this.photoClientService.delete("c4151284-0a0e-4ba6-a290-eeed3654e52eft01.png");
+
+    }
+
+    @GetMapping
+    public  ResponseEntity<?> store()  {
+       return this.photoClientService.show("c5a2d377-5505-4805-aeb1-ae6599317fecded.jpg");
 
     }
 }
