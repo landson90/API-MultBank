@@ -1,8 +1,10 @@
 package com.example.app.multbanck.multbank.controller;
 
 import com.example.app.multbanck.multbank.config.security.TokenService;
+import com.example.app.multbanck.multbank.dto.AuthLoggedDTO;
 import com.example.app.multbanck.multbank.dto.AuthUserDTO;
 import com.example.app.multbanck.multbank.dto.TokenDTO;
+import com.example.app.multbanck.multbank.service.AuthLoggedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,18 +24,20 @@ public class AuthController {
 
 
     private AuthenticationManager authenticationManager;
-
     private TokenService tokenService;
+    private AuthLoggedService authLoggedService;
 
     @Autowired
     public AuthController(TokenService tokenService,
-                          AuthenticationManager authenticationManager) {
+                          AuthenticationManager authenticationManager,
+                          AuthLoggedService authLoggedService) {
         this.tokenService = tokenService;
         this.authenticationManager = authenticationManager;
+        this.authLoggedService = authLoggedService;
     }
 
     @PostMapping
-    public ResponseEntity<TokenDTO> login(@RequestBody @Valid AuthUserDTO dataFormLogin) {
+    public ResponseEntity<AuthLoggedDTO> login(@RequestBody @Valid AuthUserDTO dataFormLogin) {
 
         try {
             UsernamePasswordAuthenticationToken autenticacaoUsuario = dataFormLogin.converteAuthLogin();
@@ -42,7 +46,7 @@ public class AuthController {
 
             String token = this.tokenService.storeToken(authentication);
 
-            return ResponseEntity.ok().body(new TokenDTO(token, "Bearer"));
+            return this.authLoggedService.showUserLogged(token, dataFormLogin.getEmail());
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().build();
         }

@@ -16,6 +16,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -29,12 +36,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserRepository userRepository;
 
+    @Bean
+    public CorsFilter corsFilter() {
+
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        config.setMaxAge(3600L);
+
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+
+        return new CorsFilter(source);
+    }
 
     @Override
     @Bean
-   public AuthenticationManager authenticationManager() throws Exception {
-       return super.authenticationManager();
-   }
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -44,10 +68,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Configuração de acesso às rotas
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/auth")
+        http.cors()
+                .and().
+                authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/auth")
                 .permitAll()
-                .antMatchers(HttpMethod.POST,"/usuarios")
+                .antMatchers(HttpMethod.POST, "/usuarios")
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/contas/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -67,5 +95,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
 
     }
+
 
 }
