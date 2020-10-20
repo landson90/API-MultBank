@@ -1,7 +1,8 @@
 package com.example.app.multbanck.multbank.dto;
 
 public class AuthLoggedDTO {
-    private Long id;
+    private Long clientId;
+    private Long accountId;
     private String name;
     private String email;
     private String account;
@@ -11,8 +12,9 @@ public class AuthLoggedDTO {
     public AuthLoggedDTO() {
     }
 
-    public AuthLoggedDTO(Long id, String name, String email, String account, int balance, String token) {
-        this.id = id;
+    public AuthLoggedDTO(Long clientId, Long accountId, String name, String email, String account, int balance, String token) {
+        this.clientId = clientId;
+        this.accountId = accountId;
         this.name = name;
         this.email = email;
         this.account = account;
@@ -20,12 +22,20 @@ public class AuthLoggedDTO {
         this.token = token;
     }
 
-    public Long getId() {
-        return id;
+    public Long getClientId() {
+        return clientId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public String getName() {

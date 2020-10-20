@@ -35,6 +35,7 @@ public class AuthLoggedService {
         AccountEntity accountEntity = this.getAccount(clientEntity.getId());
         AuthLoggedDTO authLoggedDTO = new AuthLoggedDTO(
                 usuarioEntity.getId(),
+                accountEntity.getId(),
                 usuarioEntity.getName(),
                 usuarioEntity.getEmail(),
                 accountEntity.getNumberAccount(),
