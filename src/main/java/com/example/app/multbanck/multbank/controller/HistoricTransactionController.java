@@ -3,14 +3,16 @@ package com.example.app.multbanck.multbank.controller;
 import com.example.app.multbanck.multbank.dto.AccountViewDTO;
 import com.example.app.multbanck.multbank.dto.DataForTransactionDTO;
 import com.example.app.multbanck.multbank.dto.HistoricAccountClientTransactionDTO;
-import com.example.app.multbanck.multbank.dto.HistoricTransactionDTO;
-import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
 import com.example.app.multbanck.multbank.service.HistoricTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import org.springframework.data.domain.Sort.Direction;
+
 
 @RestController
 @RequestMapping(value = "/historico")
@@ -42,10 +44,11 @@ public class HistoricTransactionController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<HistoricAccountClientTransactionDTO>> accountHistoricTransactionList(
-            @PathVariable Long id
+    public ResponseEntity<Page<HistoricAccountClientTransactionDTO>> accountHistoricTransactionList(
+            @PathVariable Long id,
+            @PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 6) Pageable pag
     ) {
-        return this.service.accountHistoricTransactionList(id);
+        return this.service.accountHistoricTransactionList(id, pag);
     }
 
 

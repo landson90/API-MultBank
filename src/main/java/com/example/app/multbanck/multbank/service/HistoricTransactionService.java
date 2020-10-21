@@ -7,6 +7,8 @@ import com.example.app.multbanck.multbank.repository.AccountRepository;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import com.example.app.multbanck.multbank.repository.HistoricTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -160,10 +162,11 @@ public class HistoricTransactionService {
         return accountViewDTO;
     }
 
-    public ResponseEntity<List<HistoricAccountClientTransactionDTO>> accountHistoricTransactionList(Long id) {
-        List<HistoricTransactionEntity> list = this.historicTransactionRepository.findAllAccountHistoricTransactionList(id);
-        List<HistoricAccountClientTransactionDTO> historic = list.stream()
-                .map(c -> new HistoricAccountClientTransactionDTO(c)).collect(Collectors.toList());
+    public ResponseEntity<Page<HistoricAccountClientTransactionDTO>> accountHistoricTransactionList(Long id, Pageable pag) {
+        Page<HistoricTransactionEntity> list = this.historicTransactionRepository
+                .findAllAccountHistoricTransactionList(id, pag);
+        Page<HistoricAccountClientTransactionDTO> historic = list.
+                map(c -> new HistoricAccountClientTransactionDTO(c));
         return ResponseEntity.ok().body(historic);
     }
 }

@@ -2,6 +2,8 @@ package com.example.app.multbanck.multbank.repository;
 
 
 import com.example.app.multbanck.multbank.model.HistoricTransactionEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +15,5 @@ import java.util.List;
 public interface HistoricTransactionRepository extends JpaRepository<HistoricTransactionEntity, Long> {
 
     @Query("SELECT h FROM HistoricTransactionEntity h where account.id = :id ORDER BY createAT")
-    List<HistoricTransactionEntity> findAllAccountHistoricTransactionList(@Param("id") Long id);
+    Page<HistoricTransactionEntity> findAllAccountHistoricTransactionList(@Param("id") Long id, Pageable pag);
 }

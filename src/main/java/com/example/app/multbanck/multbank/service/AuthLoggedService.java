@@ -30,7 +30,10 @@ public class AuthLoggedService {
     }
 
     public ResponseEntity<AuthLoggedDTO> showUserLogged(String token, String email) {
+
         UsuarioEntity usuarioEntity = this.userRepository.findByEmail(email).get();
+        UsuarioEntity nomeGrupo =  this.userRepository.findByEmail("roberta").get(); // fazer null
+
         ClientEntity clientEntity   = this.getClient(usuarioEntity.getId());
         AccountEntity accountEntity = this.getAccount(clientEntity.getId());
         AuthLoggedDTO authLoggedDTO = new AuthLoggedDTO(
