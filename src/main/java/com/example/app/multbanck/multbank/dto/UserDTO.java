@@ -56,7 +56,7 @@ public class UserDTO {
     }
 
     public void setPassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
+        this.password = password;
     }
 
     public List<ProfileEntity> getPerfil() {

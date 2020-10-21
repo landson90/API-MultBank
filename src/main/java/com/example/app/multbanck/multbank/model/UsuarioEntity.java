@@ -98,6 +98,7 @@ public class UsuarioEntity implements UserDetails {
 
     public void setPassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
+
     }
 
     public List<ProfileEntity> getPerfil() {
