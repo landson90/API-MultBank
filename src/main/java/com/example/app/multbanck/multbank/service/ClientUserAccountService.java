@@ -1,7 +1,13 @@
 package com.example.app.multbanck.multbank.service;
 
-import ch.qos.logback.core.net.server.Client;
-import com.example.app.multbanck.multbank.dto.AccountDTO;
+import java.net.URI;
+import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.example.app.multbanck.multbank.dto.ClientUserDTO;
 import com.example.app.multbanck.multbank.dto.UserDTO;
 import com.example.app.multbanck.multbank.model.AccountEntity;
@@ -10,13 +16,6 @@ import com.example.app.multbanck.multbank.model.UsuarioEntity;
 import com.example.app.multbanck.multbank.repository.AccountRepository;
 import com.example.app.multbanck.multbank.repository.ClientRepository;
 import com.example.app.multbanck.multbank.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.Random;
 
 @Service
 public class ClientUserAccountService {
