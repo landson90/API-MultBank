@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         config.setMaxAge(3600L);
 
         config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-
+        config.setAllowedOrigins(Arrays.asList("https://multbank-front-spa-angular.web.app/sung-up"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         source.registerCorsConfiguration("/**", config);
