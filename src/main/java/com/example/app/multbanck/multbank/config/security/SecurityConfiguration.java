@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
         config.setAllowedOrigins(Arrays.asList("https://multbank-front-spa-angular.web.app"));
         config.setAllowedOrigins(Arrays.asList("https://multbank-front-spa-angular.firebaseapp.com"));
+        config.setAllowedOrigins(Arrays.asList("https://multbank-front.herokuapp.com/"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         source.registerCorsConfiguration("/**", config);
